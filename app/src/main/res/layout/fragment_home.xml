@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dip"
+            android:paddingTop="10dip">
+            <RelativeLayout
+                android:id="@+id/layout1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:paddingEnd="10sp">
+                <TextView
+                    android:id="@+id/tv_tab_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="关注"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:layout_marginEnd="20sp"/>
+                <TextView
+                    android:id="@+id/tv_tab_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="首页"
+                    android:layout_toEndOf="@id/tv_tab_1"
+                    android:textColor="@color/lightwhite"
+                    android:textSize="18sp"
+                    android:layout_marginEnd="20sp" />
+                <TextView
+                    android:id="@+id/tv_tab_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="专题"
+                    android:layout_toEndOf="@id/tv_tab_2"
+                    android:textColor="@color/lightwhite"
+                    android:textSize="18sp" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5sp"
+                android:layout_alignParentEnd="true">
+                <Button
+                    android:id="@+id/search"
+                    android:layout_width="20sp"
+                    android:layout_height="20sp"
+                    android:background="@drawable/search"/>
+                <Button
+                    android:id="@+id/notice"
+                    android:layout_width="20sp"
+                    android:layout_height="20sp"
+                    android:layout_marginStart="10sp"
+                    android:layout_toEndOf="@id/search"
+                    android:background="@drawable/notice"/>
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:orientation="vertical"
+            android:paddingBottom="3dip">
+
+            <ImageView
+                android:id="@+id/iv_bottom_line"
+                android:layout_width="40dip"
+                android:layout_height="2dip"
+                android:scaleType="matrix"
+                android:src="#f00" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vPager"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:flipInterval="30"
+        android:persistentDrawingCache="animation" />
+
+</LinearLayout>
