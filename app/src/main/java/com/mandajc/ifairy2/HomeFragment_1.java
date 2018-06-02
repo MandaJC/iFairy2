@@ -1,22 +1,34 @@
 package com.mandajc.ifairy2;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.gson.JsonSyntaxException;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import Util.GsonUtils;
+import Util.HttpPath;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.mandajc.ifairy2.HomeFragment;
+import model.MainItem;
 
 /**
  * Created by lyzwj on 2018/5/6.
@@ -27,27 +39,27 @@ public class HomeFragment_1 extends Fragment implements View.OnClickListener{
     RecyclerView mainItem;
     public MainViewAdapter adapter2;
     public List<MainItem> mainItemsList = new ArrayList<>();
+    private MainActivity mainActivity;
+    RequestQueue mQueue;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
+    // TODO Auto-generated method stub
         View view = inflater.inflate(R.layout.fragment_home_1, null);
         ButterKnife.bind(this, view);
         ViewCompat.setElevation(view, 50);
+        mQueue = Volley.newRequestQueue(getActivity());
+
         initMainItem();
-        adapter2 = new MainViewAdapter(mainItemsList);
-        StaggeredGridLayoutManager layoutManager2 = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        mainItem.setAdapter(adapter2);
-        mainItem.setLayoutManager(layoutManager2);
 //        search.setOnClickListener(this);
         return view;
-    }
+}
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        
+
     }
 
     @Override
@@ -56,27 +68,51 @@ public class HomeFragment_1 extends Fragment implements View.OnClickListener{
         adapter2.notifyItemRemoved(0);
     }
 
+    /**
+     * Called when a fragment is first attached to its context.
+     * {@link #onCreate(Bundle)} will be called after this.
+     *
+     * @param context
+     */
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mainActivity = (MainActivity)context;
+    }
 
     private  void initMainItem(){
-        mainItemsList.add(new MainItem(R.drawable.q0, R.drawable.liai, R.drawable.unlike,
-                "黛珂怎么选？混痘油？空瓶经验分享", "人人都是小仙女", "0"));
-        mainItemsList.add(new MainItem(R.drawable.q1, R.drawable.liai, R.drawable.unlike,
-                "黛珂怎么选？混痘油？空瓶经验分享", "人人都是小仙女", "0"));
-        mainItemsList.add(new MainItem(R.drawable.q2, R.drawable.liai, R.drawable.unlike,
-                "黛珂怎么选？混痘油？空瓶经验分享", "人人都是小仙女", "0"));
-        mainItemsList.add(new MainItem(R.drawable.q3, R.drawable.liai, R.drawable.unlike,
-                "黛珂怎么选？混痘油？空瓶经验分享", "人人都是小仙女", "0"));
-        mainItemsList.add(new MainItem(R.drawable.q4, R.drawable.liai, R.drawable.unlike,
-                "黛珂怎么选？混痘油？空瓶经验分享", "人人都是小仙女", "0"));
-        mainItemsList.add(new MainItem(R.drawable.q5, R.drawable.liai, R.drawable.unlike,
-                "黛珂怎么选？混痘油？空瓶经验分享", "人人都是小仙女", "0"));
-        mainItemsList.add(new MainItem(R.drawable.q6, R.drawable.liai, R.drawable.unlike,
-                "黛珂怎么选？混痘油？空瓶经验分享", "人人都是小仙女", "0"));
-        mainItemsList.add(new MainItem(R.drawable.q7, R.drawable.liai, R.drawable.unlike,
-                "黛珂怎么选？混痘油？空瓶经验分享", "人人都是小仙女", "0"));
-        mainItemsList.add(new MainItem(R.drawable.q8, R.drawable.liai, R.drawable.unlike,
-                "黛珂怎么选？混痘油？空瓶经验分享", "人人都是小仙女", "0"));
-        mainItemsList.add(new MainItem(R.drawable.q9, R.drawable.liai, R.drawable.unlike,
-                "黛珂怎么选？混痘油？空瓶经验分享", "人人都是小仙女", "0"));
+        StringRequest request = new StringRequest(Request.Method.GET,
+                HttpPath.get_post_ArticleList(), new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    mainItemsList = GsonUtils.jsonToArrayList(response, MainItem.class);
+
+                    adapter2 = new MainViewAdapter(mainItemsList);
+                    StaggeredGridLayoutManager layoutManager2 = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+                    mainItem.setAdapter(adapter2);
+                    mainItem.setLayoutManager(layoutManager2);
+
+//                    adapter2.notifyDataSetChanged();
+                    Log.e("Fragment2:", mainItemsList.get(1).getTitle());
+                    for(int i = 0; i < mainItemsList.size(); i++){
+                        Log.e("Fragment2:", mainItemsList.get(i).getTitle());
+                    }
+                }catch (JsonSyntaxException e){
+
+                    e.printStackTrace();
+
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(),
+                        error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        mQueue.add(request);
+        //volleyApplication.getQueue().add(request);
     }
 }
+

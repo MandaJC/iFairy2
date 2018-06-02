@@ -27,11 +27,16 @@ public class PostActivity extends AppCompatActivity {
         setContentView(R.layout.activity_post);
         postImg = (ImageView)findViewById(R.id.postImg);
         postText = (TextView)findViewById(R.id.postText);
-        postImg.setImageResource(R.drawable.liai);
+        //postImg.setImageResource(R.drawable.q8);
         Intent intent = getIntent();
         pos = intent.getIntExtra("extra", 1);
+        StringBuilder content = new StringBuilder();
+        for(int i = 0; i < 10000; i++){
+            content.append(pos);
+        }
+        postText.setText(content.toString());
         Log.e("PostActivity", "onCreate: " + pos);
-        sendRequestWithOkHttp();
+        //sendRequestWithOkHttp();
     }
     private  void sendRequestWithOkHttp(){
         new Thread(new Runnable() {

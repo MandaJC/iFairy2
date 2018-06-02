@@ -16,10 +16,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    packagingOptions {
+        exclude 'META-INF/NOTICE' // will not include NOTICE file
+        exclude 'META-INF/LICENSE' // will not include LICENSE file
+        exclude 'META-INF/DEPENDENCIES'
+    }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     testImplementation 'junit:junit:4.12'
@@ -32,8 +37,13 @@ dependencies {
     implementation project(':library')
     compile 'com.github.ksoichiro:android-observablescrollview:1.6.0'
     compile 'de.hdodenhof:circleimageview:2.2.0'
-    implementation 'com.github.bumptech.glide:glide:4.7.1'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
     compile 'com.google.code.gson:gson:2.8.0'
+    implementation files('libs/android-async-http-1.4.4.jar')
+    implementation files('libs/httpclient-4.3.3.jar')
+    implementation files('libs/httpcore-4.3.2.jar')
+    implementation files('libs/httpmime-4.3.4.jar')
+    implementation files('libs/volley.jar')
 }

@@ -12,7 +12,6 @@ import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -20,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import model.MainItem;
 
 /**
  * Created by lyzwj on 2018/5/6.
@@ -64,9 +64,9 @@ public class HomeFragment extends Fragment{
     }
 
     private void InitTextView(View parentView) {
-        tvTabNew = (TextView) parentView.findViewById(R.id.tv_tab_1);
-        tvTabHot = (TextView) parentView.findViewById(R.id.tv_tab_2);
-        tvTabSpecial = (TextView)parentView.findViewById(R.id.tv_tab_3);
+        tvTabNew = (TextView) parentView.findViewById(R.id.tv_tab_1);//关注
+        tvTabHot = (TextView) parentView.findViewById(R.id.tv_tab_2);//首页
+        tvTabSpecial = (TextView)parentView.findViewById(R.id.tv_tab_3);//专题
 
         tvTabNew.setOnClickListener(new MyOnClickListener(0));
         tvTabHot.setOnClickListener(new MyOnClickListener(1));

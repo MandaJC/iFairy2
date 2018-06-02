@@ -15,6 +15,9 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
+import Util.HttpPath;
+import model.MainItem;
+
 /**
  * Created by lyzwj on 2018/5/6.
  * 这里是首页的RecyclerView，就是瀑布流CardView的部分
@@ -66,15 +69,14 @@ public class MainViewAdapter extends RecyclerView.Adapter<MainViewAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         MainItem item = mItems.get(position);
-        Glide.with(mContext).load(item.getImg_content()).into(holder.img_content);
-        Glide.with(mContext).load(item.getImg_user()).into(holder.img_user);
-        Glide.with(mContext).load(item.getImg_like()).into(holder.img_like);
-//        holder.img_content.setImageResource(item.getImg_content());
-//        holder.img_user.setImageResource(item.getImg_user());
-//        holder.img_like.setImageResource(item.getImg_like());
+//        Glide.with(mContext).load(item.getImg_content()).into(holder.img_content);
+//        Glide.with(mContext).load(item.getImg_user()).into(holder.img_user);
+        Glide.with(mContext).load(R.id.like_image).into(holder.img_like);
+        Glide.with(mContext).load(HttpPath.getPic(item.getPhoto1())).into(holder.img_content);
+        Glide.with(mContext).load(HttpPath.getPic(item.getUserphoto())).into(holder.img_user);
         holder.title.setText(item.getTitle());
-        holder.user_name.setText(item.getUser_name());
-        holder.like_num.setText(item.getLike_num());
+        holder.user_name.setText(item.getUsername());
+        holder.like_num.setText(String.valueOf(item.getLikenum()));
         holder.pos = position;
     }
 

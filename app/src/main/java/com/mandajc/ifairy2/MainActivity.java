@@ -11,6 +11,22 @@ import android.support.v7.widget.CardView;
 import android.view.Menu;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.google.gson.JsonSyntaxException;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import Util.GsonUtils;
+import Util.HttpPath;
+import model.Article;
+import model.MainItem;
+import volleyHttp.volleyApplication;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
     private RadioGroup radioGroup;
+    public List<MainItem> mainItemsList = new ArrayList<>();
     int img_size = 60;
 
     @Override
@@ -37,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         Drawable drawable=getResources().getDrawable(R.drawable.shouye);
         drawable.setBounds(0,0,img_size,img_size);
         ((RadioButton)radioGroup.findViewById(R.id.radio0)).setCompoundDrawables(null,drawable,null,null);
-        drawable=getResources().getDrawable(R.drawable.add);
+        drawable=getResources().getDrawable(R.drawable.add1);
         drawable.setBounds(0,0,img_size + 25,img_size + 25);
         ((RadioButton)radioGroup.findViewById(R.id.radio1)).setCompoundDrawables(null,drawable,null,null);
         drawable=getResources().getDrawable(R.drawable.me);
@@ -77,4 +94,34 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
+
+
+    public List<MainItem> ArticleList(){
+        StringRequest request = new StringRequest(Request.Method.GET,
+                HttpPath.get_post_ArticleList(), new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+
+                    mainItemsList = GsonUtils.jsonToArrayList(response, MainItem.class);
+
+                }catch (JsonSyntaxException e){
+
+                    e.printStackTrace();
+
+                }
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(),
+                        error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        request.setTag("strReqGet");
+        volleyApplication.getQueue().add(request);
+        return mainItemsList;
+    }
 }
