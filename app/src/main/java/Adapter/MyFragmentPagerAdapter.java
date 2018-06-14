@@ -1,4 +1,4 @@
-package com.mandajc.ifairy2;
+package Adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -6,18 +6,20 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import java.util.ArrayList;
 
+import model.PagerFragment;
+
 /**
  * Created by lyzwj on 2018/5/6.
  */
 
 public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
-    private ArrayList<Fragment> fragmentsList;
+    private ArrayList<PagerFragment> fragmentsList;
 
     public MyFragmentPagerAdapter(FragmentManager fm) {
         super(fm);
     }
 
-    public MyFragmentPagerAdapter(FragmentManager fm, ArrayList<Fragment> fragments) {
+    public MyFragmentPagerAdapter(FragmentManager fm, ArrayList<PagerFragment> fragments) {
         super(fm);
         this.fragmentsList = fragments;
     }
@@ -28,7 +30,7 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
     }
 
     @Override
-    public Fragment getItem(int arg0) {
+    public PagerFragment getItem(int arg0) {
         return fragmentsList.get(arg0);
     }
 

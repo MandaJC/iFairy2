@@ -1,10 +1,12 @@
 package model;
 
+import java.io.Serializable;
+
 /**
  * Created by lyzwj on 2018/5/29.
  */
 
-public class Article {
+public class Article implements Serializable{
     /**
      * id : 1
      * title : 撒孩子ed
@@ -28,6 +30,13 @@ public class Article {
     private String photo1;
     private String photo2;
     private String photo3;
+    /**
+     * tag : 防晒
+     * nickname : 匿名
+     */
+
+    private String tag;
+    private String nickname;
 
     public int getId() {
         return id;
@@ -107,5 +116,21 @@ public class Article {
 
     public void setPhoto3(String photo3) {
         this.photo3 = photo3;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 }

@@ -3,7 +3,6 @@ package com.mandajc.ifairy2;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -24,23 +23,26 @@ import com.google.gson.JsonSyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
+import Adapter.MainViewAdapter;
 import Util.GsonUtils;
 import Util.HttpPath;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import model.MainItem;
+import model.Article;
+import model.PagerFragment;
 
 /**
  * Created by lyzwj on 2018/5/6.
  */
 
-public class HomeFragment_1 extends Fragment implements View.OnClickListener{
+public class HomeFragment_1 extends PagerFragment implements View.OnClickListener{
     @BindView(R.id.main_view1)
     RecyclerView mainItem;
     public MainViewAdapter adapter2;
-    public List<MainItem> mainItemsList = new ArrayList<>();
+    public List<Article> mainItemsList = new ArrayList<>();
     private MainActivity mainActivity;
     RequestQueue mQueue;
+    String username;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,6 +55,7 @@ public class HomeFragment_1 extends Fragment implements View.OnClickListener{
 
         initMainItem();
 //        search.setOnClickListener(this);
+        Log.e("//", "HomeFragment_1");
         return view;
 }
 
@@ -86,22 +89,15 @@ public class HomeFragment_1 extends Fragment implements View.OnClickListener{
             @Override
             public void onResponse(String response) {
                 try {
-                    mainItemsList = GsonUtils.jsonToArrayList(response, MainItem.class);
+                    mainItemsList = GsonUtils.jsonToArrayList(response, Article.class);
 
-                    adapter2 = new MainViewAdapter(mainItemsList);
+                    adapter2 = new MainViewAdapter(mainItemsList, username);
                     StaggeredGridLayoutManager layoutManager2 = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
                     mainItem.setAdapter(adapter2);
                     mainItem.setLayoutManager(layoutManager2);
-
-//                    adapter2.notifyDataSetChanged();
-                    Log.e("Fragment2:", mainItemsList.get(1).getTitle());
-                    for(int i = 0; i < mainItemsList.size(); i++){
-                        Log.e("Fragment2:", mainItemsList.get(i).getTitle());
-                    }
+                    Log.e("Fragment1:", mainItemsList.get(1).getTitle());
                 }catch (JsonSyntaxException e){
-
                     e.printStackTrace();
-
                 }
             }
         }, new Response.ErrorListener() {

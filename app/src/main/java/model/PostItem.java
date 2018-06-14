@@ -1,4 +1,4 @@
-package com.mandajc.ifairy2;
+package model;
 
 import android.widget.TextView;
 

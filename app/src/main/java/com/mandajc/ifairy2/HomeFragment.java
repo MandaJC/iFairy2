@@ -1,10 +1,12 @@
 package com.mandajc.ifairy2;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +20,11 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import Adapter.MyFragmentPagerAdapter;
 import butterknife.BindView;
-import model.MainItem;
+import butterknife.ButterKnife;
+import model.Article;
+import model.PagerFragment;
 
 /**
  * Created by lyzwj on 2018/5/6.
@@ -30,38 +35,62 @@ public class HomeFragment extends Fragment{
     Button search;
     Resources resources;
     private ViewPager mPager;
-    private ArrayList<Fragment> fragmentsList;
+    private ArrayList<PagerFragment> fragmentsList;
     private ImageView ivBottomLine;
     private TextView tvTabNew, tvTabHot, tvTabSpecial;
     RelativeLayout layout1;
 
     private int currIndex = 0;
-    private int bottomLineWidth;
+    private ViewGroup.LayoutParams bottomLineWidth;
     private int offset = 0;
-    private int position_one, position_two;
+    private int position_one, position_two, avg;
     public final static int num = 3 ;
-    Fragment home1;
-    Fragment home2;
-    Fragment home3;
-    int[] location = new int[2];
-    public List<MainItem> mainItemsList = new ArrayList<>();
+    PagerFragment home1;
+    PagerFragment home2;
+    PagerFragment home3;
+
+    Bundle bundle;
+    public List<Article> mainItemsList = new ArrayList<>();
+    String search_tag;
+    public String username;
+    int start_mode;//0-自启动，1-LoginActivity启动，2-SearchActivity启动，
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         View view = inflater.inflate(R.layout.fragment_home, null);
+        bundle = getArguments();
+        start_mode = bundle.getInt("start_mode");
+        Log.e("HomeCreate", String.valueOf(start_mode));
+        ButterKnife.bind(this, view);
         resources = getResources();
         InitTextView(view);
         InitWidth(view);
         InitViewPager(view);
-        tvTabHot.setTextColor(resources.getColor(R.color.lightwhite));
-        TranslateAnimation animation = new TranslateAnimation(position_one, offset, 0, 0);
+        tvTabHot.setTextColor(resources.getColor(R.color.white));
+        TranslateAnimation animation = new TranslateAnimation(position_one, position_one, 0, 0);
         animation.setFillAfter(true);
         animation.setDuration(300);
         ivBottomLine.startAnimation(animation);
+        username = bundle.getString("username");
+//        search_tag = bundle.getString("tag");
+//        mainItemsList = (List<Article>) bundle.getSerializable("data");
+
+//        Toast.makeText(getContext(), username, Toast.LENGTH_SHORT).show();
+        Log.e("HomeFragment", username );
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), SearchActivity.class);
+                intent.putExtra("username", username);
+                startActivity(intent);
+            }
+        });
         return view;
     }
+
+
 
     private void InitTextView(View parentView) {
         tvTabNew = (TextView) parentView.findViewById(R.id.tv_tab_1);//关注
@@ -75,7 +104,7 @@ public class HomeFragment extends Fragment{
 
     private void InitViewPager(View parentView) {
         mPager = (ViewPager) parentView.findViewById(R.id.vPager);
-        fragmentsList = new ArrayList<Fragment>();
+        fragmentsList = new ArrayList<PagerFragment>();
 
         home1 = new HomeFragment_1();
         home2 = new HomeFragment_2();
@@ -87,7 +116,9 @@ public class HomeFragment extends Fragment{
 
         mPager.setAdapter(new MyFragmentPagerAdapter(getChildFragmentManager(), fragmentsList));
         mPager.addOnPageChangeListener(new MyOnPageChangeListener());
-        mPager.setCurrentItem(0);
+        mPager.setCurrentItem(1);
+        bundleRe(bundle, false, true, false);
+        bundleRe(bundle, false, false, true);
         ///////////////////////////////////
         mPager.setOffscreenPageLimit(3);
     }
@@ -95,16 +126,18 @@ public class HomeFragment extends Fragment{
     private void InitWidth(View parentView) {
         ivBottomLine = (ImageView) parentView.findViewById(R.id.iv_bottom_line);
         layout1 = (RelativeLayout)parentView.findViewById(R.id.layout1);
-        bottomLineWidth = ivBottomLine.getLayoutParams().width;
+        bottomLineWidth = ivBottomLine.getLayoutParams();
         DisplayMetrics dm = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
         int screenW = dm.widthPixels;
         layout1.measure(0, 0);
         int layoutW = layout1.getMeasuredWidth();
-        offset = (int) ((screenW - layoutW) / 2);
-        int avg = (int) (layoutW / num);
-        position_one = avg + offset;
-        position_two = avg * 2 + offset;
+        offset = (int) ((screenW - layoutW) / 2)+5;//=position_zero
+        avg = (int) (layoutW / num);
+        bottomLineWidth.width = avg/2;
+        ivBottomLine.setLayoutParams(bottomLineWidth);
+        position_one = avg+5 + offset;
+        position_two = (avg+5) * 2 + offset;
     }
 
     public class MyOnClickListener implements View.OnClickListener {
@@ -145,6 +178,7 @@ public class HomeFragment extends Fragment{
                         tvTabSpecial.setTextColor(resources.getColor(R.color.lightwhite));
                     }
                     tvTabHot.setTextColor(resources.getColor(R.color.white));
+                    bundleRe(bundle, false, true, false);
                     break;
                 case 2:
                     if (currIndex == 0) {
@@ -156,6 +190,7 @@ public class HomeFragment extends Fragment{
                         tvTabHot.setTextColor(resources.getColor(R.color.lightwhite));
                     }
                     tvTabSpecial.setTextColor(resources.getColor(R.color.white));
+                    bundleRe(bundle, false, false, true);
                     break;
             }
             currIndex = arg0;
@@ -171,6 +206,22 @@ public class HomeFragment extends Fragment{
 
         @Override
         public void onPageScrollStateChanged(int arg0) {
+        }
+    }
+
+    private void bundleRe(Bundle bundle, boolean isFirst, boolean isSecond, boolean isThird) {
+        if (isFirst){}
+        if (isSecond){
+            fragmentsList.get(currIndex).reBundle(bundle);
+            fragmentsList.get(currIndex).reTag(bundle.getString("tag", ""));
+            fragmentsList.get(currIndex).reMode(bundle.getInt("start_mode", 0));
+            Log.e("Home", String.valueOf(bundle.getInt("start_mode", 0)));
+            fragmentsList.get(currIndex).reUser(bundle.getString("username"));
+            fragmentsList.get(currIndex).reData((List<Article>) bundle.getSerializable("data"));
+        }
+        if (isThird){
+            Log.e("bundleRe: ", bundle.getString("username"));
+            fragmentsList.get(2).reUser(bundle.getString("username"));
         }
     }
 }
