@@ -20,19 +20,18 @@ import java.util.List;
 
 import Util.HttpPath;
 import model.Article;
+import model.Collect;
 
 /**
- * Created by lyzwj on 2018/5/6.
- * 这里是首页的RecyclerView，就是瀑布流CardView的部分
- * 也是个人文章界面
+ * Created by lyzwj on 2018/6/15.
  */
 
-public class MainViewAdapter extends RecyclerView.Adapter<MainViewAdapter.ViewHolder> {
-    private List<Article> mItems;
+public class ArticleCollectAdapter extends RecyclerView.Adapter<ArticleCollectAdapter.ViewHolder> {
+    private List<Collect> mItems;
     private Context mContext;
     String username;
     int start_mode;//0-自启动，1-LoginActivity启动，2-SearchActivity启动，
-    public MainViewAdapter(List<Article> items, String username){
+    public ArticleCollectAdapter(List<Collect> items, String username){
         mItems = items;
         this.username = username;
     }
@@ -56,12 +55,12 @@ public class MainViewAdapter extends RecyclerView.Adapter<MainViewAdapter.ViewHo
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ArticleCollectAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if(mContext == null){
             mContext = parent.getContext();
         }
         View view = LayoutInflater.from(mContext).inflate(R.layout.main_item1, parent, false);
-        final ViewHolder holder = new ViewHolder(view);
+        final ArticleCollectAdapter.ViewHolder holder = new ArticleCollectAdapter.ViewHolder(view);
         holder.img_content.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {//跳转至详细的分享内容，新的activity
@@ -73,7 +72,6 @@ public class MainViewAdapter extends RecyclerView.Adapter<MainViewAdapter.ViewHo
                 Log.e("adapter+username ", username+"");
                 Log.e("MainActivityAdapter", "onClick: " + holder.title);
                 Log.e("onBindViewHolder", mItems.get(holder.pos).getUsername());
-                Log.e("onBindViewHolder", mItems.get(holder.pos).getPhoto1());
                 v.getContext().startActivity(intent);
             }
         });
@@ -81,17 +79,10 @@ public class MainViewAdapter extends RecyclerView.Adapter<MainViewAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Article item = mItems.get(position);
-//        Glide.with(mContext).load(item.getImg_content()).into(holder.img_content);
-//        Glide.with(mContext).load(item.getImg_user()).into(holder.img_user);
-//        Glide.with(mContext).load(R.drawable.unlike).into(holder.img_like);
-        Glide.with(mContext).load(HttpPath.getPic(item.getPhoto1())).into(holder.img_content);
-        Glide.with(mContext).load(HttpPath.getPic(item.getUserphoto())).into(holder.img_user);
+    public void onBindViewHolder(@NonNull ArticleCollectAdapter.ViewHolder holder, int position) {
+        Collect item = mItems.get(position);
         holder.title.setText(item.getTitle());
         holder.user_name.setText(item.getNickname());
-        holder.like_num.setText(String.valueOf(item.getLikenum()));
-        holder.collect_num.setText(String.valueOf(item.getCollectnum()));
         holder.pos = position;
     }
 

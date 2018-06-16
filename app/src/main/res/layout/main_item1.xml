@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <com.mandajc.ifairy2.RoundImageView
+        <View.RoundImageView
             android:id="@+id/main_page1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -29,7 +29,7 @@
                 android:maxLines="1"
                 android:textColor="#000000"
                 android:layout_weight="1"
-                android:textSize="22sp"
+                android:textSize="15sp"
                 android:text="标题待加载......"/>
 
             <Button
@@ -48,12 +48,12 @@
                 android:src="@drawable/liai"
                 android:layout_width="25sp"
                 android:layout_height="25sp"
-                android:layout_marginBottom="10sp"/>
+                android:layout_marginBottom="5sp"/>
             <TextView
                 android:id="@+id/user_name1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
+                android:textSize="12sp"
                 android:maxEms="7"
                 android:maxLines="1"
                 android:hint="用户名待加载......"
@@ -65,7 +65,7 @@
                 android:layout_width="20sp"
                 android:layout_height="20sp"
                 android:layout_toStartOf="@id/collect_num"
-                android:layout_marginEnd="5sp"
+                android:layout_marginEnd="2sp"
                 android:src="@drawable/collect"/>
             <TextView
                 android:id="@+id/collect_num"
@@ -73,15 +73,14 @@
                 android:layout_height="wrap_content"
                 android:layout_toStartOf="@id/like_image"
                 android:text="0"
-                android:textSize="15sp"
-                android:layout_margin="5sp"/>
+                android:textSize="15sp"/>
             <ImageView
                 android:id="@+id/like_image"
                 android:layout_width="20sp"
                 android:layout_height="20sp"
                 android:layout_toStartOf="@id/like_num"
-                android:layout_marginStart="10sp"
-                android:layout_marginEnd="5sp"
+                android:layout_marginStart="5sp"
+                android:layout_marginEnd="2sp"
                 android:src="@drawable/liked"/>
             <TextView
                 android:id="@+id/like_num"
@@ -90,7 +89,7 @@
                 android:layout_alignParentEnd="true"
                 android:text="0"
                 android:textSize="15sp"
-                android:layout_margin="5sp"/>
+                android:layout_marginEnd="2sp"/>
         </RelativeLayout>
     </LinearLayout>
 </android.support.v7.widget.CardView>

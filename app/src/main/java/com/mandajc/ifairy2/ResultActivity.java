@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
@@ -47,9 +48,22 @@ import Util.GsonUtils;
 import Util.HttpPath;
 import Util.MultiPartStack;
 import Util.MultiPartStringRequest;
+import butterknife.BindColor;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import model.Article;
 
 public class ResultActivity extends AppCompatActivity implements View.OnClickListener {
+    @BindView(R.id.relative1)   Button relative1;
+    @BindView(R.id.relative2)   Button relative2;
+    @BindView(R.id.relative3)   Button relative3;
+    @BindView(R.id.relative4)   Button relative4;
+    @BindView(R.id.relative5)   Button relative5;
+    @BindView(R.id.relative0)   Button relative0;
+    @BindColor(R.color.bluegreen)   int bluegreen;
+    @BindColor(R.color.blank)   int blank;
+    boolean[] isRelative = {false, false, false, false, false, false};
     private ImageView imageView0;
     private ImageView imageView1;
     private ImageView imageView2;
@@ -68,11 +82,14 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
     private File[] file;
     static RequestQueue mQueue;
     public String username;
+    StringBuilder relativeMsg = new StringBuilder("");
+    String[] relativeTip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
+        ButterKnife.bind(this);
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         if(actionBar != null){
             actionBar.hide();
@@ -87,6 +104,20 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
         content = (EditText)findViewById(R.id.content);
         release = (Button)findViewById(R.id.release);
         release.setOnClickListener(this);
+
+        relativeTip = new String[6];
+        relative1.setOnClickListener(this);
+        relativeTip[1] = relative1.getText().toString();
+        relative2.setOnClickListener(this);
+        relativeTip[2] = relative2.getText().toString();
+        relative3.setOnClickListener(this);
+        relativeTip[3] = relative3.getText().toString();
+        relative4.setOnClickListener(this);
+        relativeTip[4] = relative4.getText().toString();
+        relative5.setOnClickListener(this);
+        relativeTip[5] = relative5.getText().toString();
+        relative0.setOnClickListener(this);
+        relativeTip[0] = relative0.getText().toString();
 
         imageView0 = (ImageView)findViewById(R.id.picture0);
         imageView1 = (ImageView)findViewById(R.id.picture1);
@@ -109,6 +140,7 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
             }
         });
     }
+
 
     @Override
     public void onClick(View v){
@@ -137,7 +169,67 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
                 startActivityForResult(intent, TAKE_PHOTO);
                 break;
+            case R.id.relative0:
+                if(isRelative[0]){
+                    relative0.setBackgroundColor(blank);
+                    isRelative[0] = false;
+                }else {
+                    relative0.setBackgroundColor(bluegreen);
+                    isRelative[0] = true;
+                }
+                break;
+            case R.id.relative1:
+                if(isRelative[1]){
+                    relative1.setBackgroundColor(blank);
+                    isRelative[1] = false;
+                }else {
+                    relative1.setBackgroundColor(bluegreen);
+                    isRelative[1] = true;
+                }
+                break;
+            case R.id.relative2:
+                if(isRelative[2]){
+                    relative2.setBackgroundColor(blank);
+                    isRelative[2] = false;
+                }else {
+                    relative2.setBackgroundColor(bluegreen);
+                    isRelative[2] = true;
+                }
+                break;
+            case R.id.relative3:
+                if(isRelative[3]){
+                    relative3.setBackgroundColor(blank);
+                    isRelative[3] = false;
+                }else {
+                    relative3.setBackgroundColor(bluegreen);
+                    isRelative[3] = true;
+                }
+                break;
+            case R.id.relative4:
+                if(isRelative[4]){
+                    relative4.setBackgroundColor(blank);
+                    isRelative[4] = false;
+                }else {
+                    relative4.setBackgroundColor(bluegreen);
+                    isRelative[4] = true;
+                }
+                break;
+            case R.id.relative5:
+                if(isRelative[5]){
+                    relative5.setBackgroundColor(blank);
+                    isRelative[5] = false;
+                }else {
+                    relative5.setBackgroundColor(bluegreen);
+                    isRelative[5] = true;
+                }
+                break;
             case R.id.release:
+                for(int i = 0; i < isRelative.length; i++){
+                    if(isRelative[i]){
+                        relativeMsg.append("#" + relativeTip[i] + " ");
+                    }
+                }
+                Log.e("onClick: ", relativeMsg.toString());
                 showFile();
                 showXUtils();
                 break;
@@ -300,6 +392,7 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
                         Intent intent = new Intent(ResultActivity.this, MainActivity.class);
                         intent.putExtra("start_mode", 1);
                         intent.putExtra("username", username);
+                        intent.putExtra("relative", relativeMsg.toString());
                         startActivity(intent);
                     }
                 });

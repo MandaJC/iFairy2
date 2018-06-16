@@ -37,6 +37,20 @@ public class Article implements Serializable{
 
     private String tag;
     private String nickname;
+    /**
+     * tag2 : mandajc￥
+     * tag3 : mandajc￥
+     * relative :
+     */
+
+    private String tag2;
+    private String tag3;
+    private String relative;
+    /**
+     * createdate : 2018-06-15T04:44:28.564430Z
+     */
+
+    private String createdate;
 
     public int getId() {
         return id;
@@ -132,5 +146,37 @@ public class Article implements Serializable{
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
+    }
+
+    public String getTag2() {
+        return tag2;
+    }
+
+    public void setTag2(String tag2) {
+        this.tag2 = tag2;
+    }
+
+    public String getTag3() {
+        return tag3;
+    }
+
+    public void setTag3(String tag3) {
+        this.tag3 = tag3;
+    }
+
+    public String getRelative() {
+        return relative;
+    }
+
+    public void setRelative(String relative) {
+        this.relative = relative;
+    }
+
+    public String getCreatedate() {
+        return createdate;
+    }
+
+    public void setCreatedate(String createdate) {
+        this.createdate = createdate;
     }
 }

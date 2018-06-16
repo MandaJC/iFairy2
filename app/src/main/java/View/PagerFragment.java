@@ -1,9 +1,11 @@
-package model;
+package View;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
 import java.util.List;
+
+import model.Article;
 
 /**
  * Created by lyzwj on 2018/6/7.

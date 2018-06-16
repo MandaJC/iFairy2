@@ -42,6 +42,7 @@ import java.util.Map;
 
 import Util.GsonUtils;
 import Util.HttpPath;
+import Util.ScreenUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import model.Article;
@@ -66,6 +67,8 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         ButterKnife.bind(this);
+        ActionBar actionBar = getSupportActionBar();
+        if(actionBar != null){actionBar.hide();}
         mQueue = Volley.newRequestQueue(this);
         Intent intent=getIntent();
         username = intent.getStringExtra("username");
@@ -108,10 +111,10 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void InitView() {
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.hide();
-        }
+//        ActionBar actionBar = getSupportActionBar();
+//        if (actionBar != null) {
+//            actionBar.hide();
+//        }
         fragmentManager = getSupportFragmentManager();
         transaction = fragmentManager.beginTransaction();
         searchFragment = new SearchFragment_2();

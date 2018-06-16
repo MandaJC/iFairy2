@@ -29,7 +29,7 @@ import Util.HttpPath;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import model.Article;
-import model.PagerFragment;
+import View.PagerFragment;
 
 /**
  * Created by lyzwj on 2018/5/6.
@@ -100,7 +100,7 @@ public class HomeFragment_2 extends PagerFragment implements View.OnClickListene
                         StaggeredGridLayoutManager layoutManager2 = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
                         mainItem.setAdapter(adapter2);
                         mainItem.setLayoutManager(layoutManager2);
-                        Log.e("Fragment1:", mainItemsList.get(1).getTitle());
+                        Log.e("Fragment1:", mainItemsList.get(0).getTitle());
                     }catch (JsonSyntaxException e){
                         e.printStackTrace();
                     }

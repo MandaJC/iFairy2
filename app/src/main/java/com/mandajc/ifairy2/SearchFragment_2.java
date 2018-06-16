@@ -69,65 +69,65 @@ public class SearchFragment_2 extends Fragment {
     }
 
     public void initMainItem() {
-        if(start_mode == 1){//登录界面启动
-            StringRequest request = new StringRequest(Request.Method.GET,
-                    HttpPath.get_post_ArticleList(), new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    try {
-                        mainItemsList = GsonUtils.jsonToArrayList(response, Article.class);
-
-                        adapter2 = new MainViewAdapter(mainItemsList, username);
-                        StaggeredGridLayoutManager layoutManager2 = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-                        mainItem.setAdapter(adapter2);
-                        mainItem.setLayoutManager(layoutManager2);
-                        Log.e("Fragment1:", mainItemsList.get(1).getTitle());
-                    }catch (JsonSyntaxException e){
-                        e.printStackTrace();
-                    }
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                }
-            });
-            mQueue.add(request);
-//        }else if(start_mode == 2){//搜索界面启动
-//            StringRequest stringRequest=new StringRequest(Request.Method.POST,
-//                    HttpPath.getTagArticle(),new Response.Listener<String>() {
+//        if(start_mode == 1){//登录界面启动
+//            StringRequest request = new StringRequest(Request.Method.GET,
+//                    HttpPath.get_post_ArticleList(), new Response.Listener<String>() {
 //                @Override
 //                public void onResponse(String response) {
-//                    if(response.equals("Tag不存在")){
-//                        Toast.makeText(getActivity(), response, Toast.LENGTH_SHORT).show();
-//                    }else {
+//                    try {
 //                        mainItemsList = GsonUtils.jsonToArrayList(response, Article.class);
-//                        for(int i = 0; i < mainItemsList.size(); i++){
-//                            Log.e("SearchFrag:", mainItemsList.get(i).getTitle());
-//                        }
+//                        Log.e("searchFragment2:", mainItemsList.get(1).getTitle());
 //
 //                        adapter2 = new MainViewAdapter(mainItemsList, username);
 //                        StaggeredGridLayoutManager layoutManager2 = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
 //                        mainItem.setAdapter(adapter2);
 //                        mainItem.setLayoutManager(layoutManager2);
-//                        Log.e("Fragment1:", mainItemsList.get(1).getTitle());
+//                    }catch (JsonSyntaxException e){
+//                        e.printStackTrace();
 //                    }
 //                }
-//            },new Response.ErrorListener() {
+//            }, new Response.ErrorListener() {
 //                @Override
 //                public void onErrorResponse(VolleyError error) {
-//                    Log.e("searchFrag", "onErrorResponse: "+error.getMessage());
 //                }
-//            }){
-//                @Override
-//                protected Map<String, String> getParams() throws AuthFailureError {
-//                    // post 提交 重写参数 ，将自动 提交参数
-//                    Map<String,String> map=new HashMap<String, String>();
-//                    map.put("tag", search_tag);
-//                    return map;
-//                }
-//            };
-//            stringRequest.setTag("strPost");
-//            mQueue.add(stringRequest);
-        }
+//            });
+//            mQueue.add(request);
+//        }else if(start_mode == 2){//搜索界面启动
+        StringRequest stringRequest=new StringRequest(Request.Method.POST,
+                HttpPath.getTagArticle(),new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                if(response.equals("Tag不存在")){
+                    Toast.makeText(getActivity(), response, Toast.LENGTH_SHORT).show();
+                }else {
+                    mainItemsList = GsonUtils.jsonToArrayList(response, Article.class);
+                    for(int i = 0; i < mainItemsList.size(); i++){
+                        Log.e("SearchFrag:", mainItemsList.get(i).getTitle());
+                    }
+
+                    adapter2 = new MainViewAdapter(mainItemsList, username);
+                    StaggeredGridLayoutManager layoutManager2 = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+                    mainItem.setAdapter(adapter2);
+                    mainItem.setLayoutManager(layoutManager2);
+                    Log.e("Fragment1:", mainItemsList.get(1).getTitle());
+                }
+            }
+        },new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("searchFrag", "onErrorResponse: "+error.getMessage());
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                // post 提交 重写参数 ，将自动 提交参数
+                Map<String,String> map=new HashMap<String, String>();
+                map.put("tag", search_tag);
+                return map;
+            }
+        };
+        stringRequest.setTag("strPost");
+        mQueue.add(stringRequest);
+//        }
     }
 }

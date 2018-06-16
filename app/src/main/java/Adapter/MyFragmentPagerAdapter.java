@@ -1,12 +1,11 @@
 package Adapter;
 
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import java.util.ArrayList;
 
-import model.PagerFragment;
+import View.PagerFragment;
 
 /**
  * Created by lyzwj on 2018/5/6.

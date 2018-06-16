@@ -3,11 +3,9 @@ package com.mandajc.ifairy2;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,14 +27,12 @@ import java.util.List;
 import java.util.Map;
 
 import Adapter.ColumnViewAdapter;
-import Adapter.MainViewAdapter;
 import Util.GsonUtils;
 import Util.HttpPath;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import model.Article;
 import model.Column;
-import model.PagerFragment;
+import View.PagerFragment;
 
 /**
  * Created by lyzwj on 2018/5/6.
@@ -91,7 +87,9 @@ public class HomeFragment_3 extends PagerFragment {
                 public void onResponse(String response) {
                     try {
                         mainItemsList = GsonUtils.jsonToArrayList(response, Column.class);
-                        Log.e("Fragment3:", mainItemsList.get(1).getTitle());
+                        if(mainItemsList.size()>0){
+                            Log.e("Fragment3:", mainItemsList.get(0).getTitle());
+                        }
                         adapter2 = new ColumnViewAdapter(mainItemsList, username, getContext());
                         adapter2.setOnLikeClickListener(new ColumnViewAdapter.LikeListener() {
                             @Override
@@ -213,6 +211,7 @@ public class HomeFragment_3 extends PagerFragment {
                 map.put("columnId",String.valueOf(mainItemsList.get(pos).getId()));
                 map.put("title",mainItemsList.get(pos).getTitle());
                 map.put("username",mainItemsList.get(pos).getUsername());
+                map.put("nickname", mainItemsList.get(pos).getNickname());
                 map.put("likeuser",username);
                 return map;
             }
@@ -226,7 +225,7 @@ public class HomeFragment_3 extends PagerFragment {
                 HttpPath.setDislike(),new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                if(response.equals("收藏成功")){
+                if(response.equals("踩成功")){
 //                    Log.e("onResponse3: ", mainItemsList.get(pos).getLikenum()+"");
                     mainItemsList.get(pos).setDislikenum(mainItemsList.get(pos).getDislikenum()+1);
                     adapter2.notifyItemChanged(pos);
@@ -246,6 +245,7 @@ public class HomeFragment_3 extends PagerFragment {
                 map.put("columnId",String.valueOf(mainItemsList.get(pos).getId()));
                 map.put("title",mainItemsList.get(pos).getTitle());
                 map.put("username",mainItemsList.get(pos).getUsername());
+                map.put("nickname", mainItemsList.get(pos).getNickname());
                 map.put("dislikeuser",username);
                 return map;
             }

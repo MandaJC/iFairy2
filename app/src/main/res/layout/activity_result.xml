@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -71,26 +72,47 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="10dp">
-            <Button
+            <android.support.v7.widget.CardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                app:cardCornerRadius="10sp">
+            <Button
+                android:id="@+id/relative0"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="1sp"
                 android:text="油性皮肤"
-                android:background="@drawable/btn_shape"/>
-            <Button
+                android:background="#fff"/>
+        </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="干燥皮肤"
+                app:cardCornerRadius="10sp"
                 android:layout_marginLeft="5dp"
-                android:background="@drawable/btn_shape"/>
+                app:cardBackgroundColor="#000">
             <Button
+                android:id="@+id/relative1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="干燥皮肤"
+                android:background="#fff"/>
+            </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                app:cardCornerRadius="10sp">
+            <Button
+                android:id="@+id/relative2"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="混合皮肤"
-                android:layout_marginLeft="5dp"
-                android:background="@drawable/btn_shape"/>
+                android:background="#fff"/>
+            </android.support.v7.widget.CardView>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -98,26 +120,47 @@
             android:layout_weight="1"
             android:layout_marginTop="5dp"
             android:orientation="horizontal">
-            <Button
+            <android.support.v7.widget.CardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                app:cardCornerRadius="10sp">
+            <Button
+                android:id="@+id/relative3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="1sp"
                 android:text="痘痘肌"
-                android:background="@drawable/btn_shape"/>
+                android:background="#fff"/>
+            </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:cardCornerRadius="10sp"
+            android:layout_marginLeft="5dp"
+            app:cardBackgroundColor="#000">
             <Button
-                android:layout_width="wrap_content"
+                android:id="@+id/relative4"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:text="敏感肌"
-                android:layout_marginLeft="5dp"
-                android:background="@drawable/btn_shape"/>
-            <Button
+                android:background="#fff"/>
+            </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="正常肌"
+                app:cardCornerRadius="10sp"
                 android:layout_marginLeft="5dp"
-                android:background="@drawable/btn_shape"/>
+                app:cardBackgroundColor="#000">
+                <Button
+                    android:id="@+id/relative5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="正常肌"
+                    android:background="#fff"/>
+            </android.support.v7.widget.CardView>
         </LinearLayout>
 
     </LinearLayout>

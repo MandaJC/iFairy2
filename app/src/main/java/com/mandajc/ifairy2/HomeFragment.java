@@ -24,7 +24,7 @@ import Adapter.MyFragmentPagerAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import model.Article;
-import model.PagerFragment;
+import View.PagerFragment;
 
 /**
  * Created by lyzwj on 2018/5/6.

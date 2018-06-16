@@ -1,8 +1,8 @@
 package Util;
 
 public class HttpPath {
-//    private static final String IP="172.19.105.88:8000";
-	private static final String IP="192.168.199.209:8000";
+//    private static final String IP="172.19.127.34:8000";
+	private static final String IP="10.0.2.2:8000";
 //	private static final String IP="mandajc.xicp.io:17881";
 
     public static String get_post_ArticleList(){
@@ -44,6 +44,14 @@ public class HttpPath {
         return "http://" + IP + "/Article/setcollect/";
     }
 
+    public static String MyEssayList() {
+        return "http://" + IP + "/Article/myarticlelist/";
+    }
+
+    public static String CollectArticleList() {
+        return "http://" + IP + "/Article/collectarticlelist/";
+    }
+
     public static String get_post_ColumnList(){
         return "http://"+IP+"/Column/list/";
     }
@@ -59,4 +67,6 @@ public class HttpPath {
     public static String setDislike() {
         return "http://" + IP + "/Column/setdislike/";
     }
+
+
 }

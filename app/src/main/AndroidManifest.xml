@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".MainActivity"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.media.action.IMAGE_CAPTURE" />
@@ -23,7 +24,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".PostActivity" />
-        <activity android:name=".ResultActivity" android:theme="@style/AppTheme.NoBar"/>
+        <activity
+            android:name=".ResultActivity"
+            android:theme="@style/AppTheme.NoBar" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -35,14 +38,20 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".LoginActivity">
+        <activity
+            android:name=".LoginActivity"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SearchActivity" android:theme="@style/AppTheme"/>
+        <activity
+            android:name=".SearchActivity"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".CollectActivity" />
+        <activity android:name=".MyEssayActivity"></activity>
     </application>
 
 </manifest>

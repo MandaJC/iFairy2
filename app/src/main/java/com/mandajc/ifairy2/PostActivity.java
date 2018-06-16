@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -47,6 +48,7 @@ import Util.HttpPath;
 import Util.ScreenUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import model.Article;
 import volleyHttp.GsonRequest;
 import volleyHttp.volleyApplication;
@@ -63,6 +65,17 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
     @BindView(R.id.btn_left)    LinearLayout btnLeft;
     @BindView(R.id.btn_right)    LinearLayout btnRight;
     @BindView(R.id.back_article)    Button back;
+
+    @BindView(R.id.article_user1)   TextView article_user1;
+    @BindView(R.id.focus)   Button focus;
+    @BindView(R.id.img_article_user)    ImageView img_article_user;
+    @BindView(R.id.article_user2)   TextView article_user2;
+    @BindView(R.id.article_relative)    TextView article_relative;
+    @BindView(R.id.article_tag1)    Button article_tag1;
+    @BindView(R.id.article_tag2)    Button article_tag2;
+    @BindView(R.id.article_tag3)    Button article_tag3;
+    @BindView(R.id.comment_list)    RecyclerView comment_list;
+
     Article article;
     int pos, id;
     String username;
@@ -95,6 +108,12 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
         postText.setText(article.getContent());
         textLike.setText(String.valueOf(article.getLikenum()));
         textCollect.setText(String.valueOf(article.getCollectnum()));
+        article_user1.setText(article.getNickname());
+        article_user2.setText(article.getNickname());
+        article_relative.setText(article.getRelative());
+        article_tag1.setText(article.getTag());
+        article_tag2.setText(article.getTag2());
+        article_tag3.setText(article.getTag3());
         mQueue = Volley.newRequestQueue(this);
         checkLike(0);
         checkCollect(0);
@@ -284,10 +303,13 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void checkCollect(final int type){
+        Log.e("checkarticleId:", String.valueOf(article.getId()));
+        Log.e("checkcollectuser:", username);
         StringRequest stringRequest=new StringRequest(Request.Method.POST,
                 HttpPath.isCollect(),new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                Log.e("checkresponse:", response);
                 if(type == 0){//只check isCollect
                     if(response.equals("已收藏")){
                         Glide.with(PostActivity.this).load(R.drawable.collect).into(imgCollect);
@@ -313,8 +335,8 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
                 // post 提交 重写参数 ，将自动 提交参数
                 Map<String,String> map=new HashMap<String, String>();
                 map.put("articleId",String.valueOf(article.getId()));
-                map.put("title",article.getTitle());
-                map.put("username",article.getUsername());
+//                map.put("title",article.getTitle());
+//                map.put("username",article.getUsername());
                 map.put("collectuser",username);
                 return map;
             }
@@ -348,6 +370,7 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
                 map.put("articleId",String.valueOf(article.getId()));
                 map.put("title",article.getTitle());
                 map.put("username",article.getUsername());
+                map.put("nickname", article.getNickname());
                 map.put("likeuser",username);
                 return map;
             }
@@ -357,10 +380,13 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void addCollect(){
+        Log.e("setarticleId:", String.valueOf(article.getId()));
+        Log.e("setcollectuser:", username);
         StringRequest stringRequest=new StringRequest(Request.Method.POST,
                 HttpPath.setCollect(),new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                Log.e("setresponse:", response);
                 if(response.equals("收藏成功")){
                     Glide.with(PostActivity.this).load(R.drawable.collect).into(imgCollect);
 //                        imgLike.setImageResource(R.drawable.liked);
@@ -379,8 +405,9 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
                 // post 提交 重写参数 ，将自动 提交参数
                 Map<String,String> map=new HashMap<String, String>();
                 map.put("articleId",String.valueOf(article.getId()));
-                map.put("title",article.getTitle());
-                map.put("username",article.getUsername());
+//                map.put("title",article.getTitle());
+//                map.put("username",article.getUsername());
+//                map.put("nickname", article.getNickname());
                 map.put("collectuser",username);
                 return map;
             }

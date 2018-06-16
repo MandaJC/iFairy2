@@ -1,4 +1,4 @@
-package model;
+package View;
 
 import android.annotation.TargetApi;
 import android.content.Context;

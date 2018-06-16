@@ -1,4 +1,4 @@
-package com.mandajc.ifairy2;
+package View;
 
 import android.content.Context;
 import android.graphics.Canvas;
