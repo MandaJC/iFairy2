@@ -61,6 +61,9 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
     @BindView(R.id.relative4)   Button relative4;
     @BindView(R.id.relative5)   Button relative5;
     @BindView(R.id.relative0)   Button relative0;
+    @BindView(R.id.tag1)    EditText tag1;
+    @BindView(R.id.tag2)    EditText tag2;
+    @BindView(R.id.tag3)    EditText tag3;
     @BindColor(R.color.bluegreen)   int bluegreen;
     @BindColor(R.color.blank)   int blank;
     boolean[] isRelative = {false, false, false, false, false, false};
@@ -82,7 +85,7 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
     private File[] file;
     static RequestQueue mQueue;
     public String username;
-    StringBuilder relativeMsg = new StringBuilder("");
+    StringBuilder relativeMsg = new StringBuilder("#");
     String[] relativeTip;
 
     @Override
@@ -226,7 +229,7 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.release:
                 for(int i = 0; i < isRelative.length; i++){
                     if(isRelative[i]){
-                        relativeMsg.append("#" + relativeTip[i] + " ");
+                        relativeMsg.append(relativeTip[i] + " ");
                     }
                 }
                 Log.e("onClick: ", relativeMsg.toString());
@@ -360,6 +363,10 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
         params.addBodyParameter("username", username);
         params.addBodyParameter("title", title.getText().toString());
         params.addBodyParameter("content", content.getText().toString());
+        if(relativeMsg.toString().length()>0){
+            params.addBodyParameter("relative", relativeMsg.toString());
+        }
+//        Log.e("changePhoto: ", file[0].getAbsolutePath()+file[0].getName());
         switch (paths.size()){
             case 1:
                 params.addBodyParameter("photo1", file[0]);
@@ -376,10 +383,18 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
             default:
                 break;
         }
-//        params.addBodyParameter("photo1", file[0]);
-//        params.addBodyParameter("photo2", file[1]);
-//        params.addBodyParameter("photo3", file[2]);
-//        }
+        String tagone = tag1.getText().toString();
+        String tagtwo = tag2.getText().toString();
+        String tagthree = tag3.getText().toString();
+        if(!tagone.equals("")){
+            params.addBodyParameter("tag",tagone);
+        }
+        if(!tagtwo.equals("")){
+            params.addBodyParameter("tag2",tagtwo);
+        }
+        if(!tagthree.equals("")){
+            params.addBodyParameter("tag3",tagthree);
+        }
         http.send(com.lidroid.xutils.http.client.HttpRequest.HttpMethod.POST, HttpPath.get_post_ArticleList(), params,
                 new RequestCallBack<String>() {
                     @Override
@@ -392,7 +407,7 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
                         Intent intent = new Intent(ResultActivity.this, MainActivity.class);
                         intent.putExtra("start_mode", 1);
                         intent.putExtra("username", username);
-                        intent.putExtra("relative", relativeMsg.toString());
+//                        intent.putExtra("relative", relativeMsg.toString());
                         startActivity(intent);
                     }
                 });

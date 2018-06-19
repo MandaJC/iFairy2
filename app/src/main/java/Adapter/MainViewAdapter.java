@@ -86,6 +86,7 @@ public class MainViewAdapter extends RecyclerView.Adapter<MainViewAdapter.ViewHo
 //        Glide.with(mContext).load(item.getImg_content()).into(holder.img_content);
 //        Glide.with(mContext).load(item.getImg_user()).into(holder.img_user);
 //        Glide.with(mContext).load(R.drawable.unlike).into(holder.img_like);
+//        Log.e("onBindViewHolder: ", "path:"+item.getUserphoto());
         Glide.with(mContext).load(HttpPath.getPic(item.getPhoto1())).into(holder.img_content);
         Glide.with(mContext).load(HttpPath.getPic(item.getUserphoto())).into(holder.img_user);
         holder.title.setText(item.getTitle());

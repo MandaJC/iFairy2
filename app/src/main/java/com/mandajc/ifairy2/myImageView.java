@@ -1,4 +1,4 @@
-package View;
+package com.mandajc.ifairy2;
 
 import android.content.Context;
 import android.graphics.Bitmap;

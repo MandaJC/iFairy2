@@ -40,18 +40,21 @@
 
         <activity
             android:name=".LoginActivity"
-            android:launchMode="singleTask">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:launchMode="singleTask"/>
         <activity
             android:name=".SearchActivity"
             android:theme="@style/AppTheme" />
         <activity android:name=".CollectActivity" />
-        <activity android:name=".MyEssayActivity"></activity>
+        <activity android:name=".MyEssayActivity" />
+        <activity android:name=".setCenterActivity" />
+        <activity android:name=".StartActivity"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".RegisterActivity"></activity>
     </application>
 
 </manifest>

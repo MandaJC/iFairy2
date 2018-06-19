@@ -117,6 +117,7 @@ public class HomeFragment extends Fragment{
         mPager.setAdapter(new MyFragmentPagerAdapter(getChildFragmentManager(), fragmentsList));
         mPager.addOnPageChangeListener(new MyOnPageChangeListener());
         mPager.setCurrentItem(1);
+        bundleRe(bundle, true, false, false);
         bundleRe(bundle, false, true, false);
         bundleRe(bundle, false, false, true);
         ///////////////////////////////////
@@ -168,6 +169,7 @@ public class HomeFragment extends Fragment{
                         tvTabSpecial.setTextColor(resources.getColor(R.color.lightwhite));
                     }
                     tvTabNew.setTextColor(resources.getColor(R.color.white));
+                    bundleRe(bundle, true, false, false);
                     break;
                 case 1:
                     if (currIndex == 0) {
@@ -210,7 +212,10 @@ public class HomeFragment extends Fragment{
     }
 
     private void bundleRe(Bundle bundle, boolean isFirst, boolean isSecond, boolean isThird) {
-        if (isFirst){}
+        if (isFirst){
+            fragmentsList.get(0).reUser(bundle.getString("username"));
+            Log.e("bundleRe1: ", bundle.getString("username"));
+        }
         if (isSecond){
             fragmentsList.get(currIndex).reBundle(bundle);
             fragmentsList.get(currIndex).reTag(bundle.getString("tag", ""));
@@ -220,7 +225,7 @@ public class HomeFragment extends Fragment{
             fragmentsList.get(currIndex).reData((List<Article>) bundle.getSerializable("data"));
         }
         if (isThird){
-            Log.e("bundleRe: ", bundle.getString("username"));
+            Log.e("bundleRe3: ", bundle.getString("username"));
             fragmentsList.get(2).reUser(bundle.getString("username"));
         }
     }

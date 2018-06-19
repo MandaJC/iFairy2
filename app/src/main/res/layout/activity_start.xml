@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/start"
+        android:layout_width="210dp"
+        android:layout_height="180dp"
+        android:src="@drawable/start"
+        android:layout_marginTop="40dp"
+        android:layout_gravity="center_horizontal"/>
+
+    <Button
+        android:id="@+id/login"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="登 录"
+        android:textSize="18dp"
+        android:background="@drawable/btn_shape"
+        android:layout_gravity="center_horizontal"/>
+    <Button
+        android:id="@+id/regist"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:text="注 册"
+        android:textSize="18dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/btn_shape"
+        android:layout_gravity="center_horizontal"/>
+
+</LinearLayout>

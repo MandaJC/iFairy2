@@ -1,8 +1,8 @@
 package Util;
 
 public class HttpPath {
-//    private static final String IP="172.19.127.34:8000";
-	private static final String IP="10.0.2.2:8000";
+    private static final String IP="192.168.199.209:8000";
+//	private static final String IP="10.0.2.2:8000";
 //	private static final String IP="mandajc.xicp.io:17881";
 
     public static String get_post_ArticleList(){
@@ -14,6 +14,16 @@ public class HttpPath {
     public static String getPic(String imgAddr){
         return "http://"+IP+imgAddr;
     }
+    public static String getcenterPic(String imgAddr){
+        return "http://"+IP+"/res/images/"+imgAddr;
+    }
+
+    public static String Register() {
+        return "http://" + IP + "/regNlog/register/";
+    }//注册
+    public static String Login() {
+        return "http://" + IP + "/regNlog/login/";
+    }//登录
 
     public static String changeNickName() {
         return "http://" + IP + "/regNlog/nickname/";
@@ -23,7 +33,7 @@ public class HttpPath {
         return "http://" + IP + "/regNlog/password/";
     }
 
-    public static String changeHeadImg(int id) {
+    public static String changeHeadImg() {
         return "http://" + IP + "/regNlog/headimg/";
     }
 
@@ -51,6 +61,19 @@ public class HttpPath {
     public static String CollectArticleList() {
         return "http://" + IP + "/Article/collectarticlelist/";
     }
+    public static String CommentPost() {
+        return "http://" + IP + "/Article/commentpost/";
+    }
+    public static String CommentList() {
+        return "http://" + IP + "/Article/commentlist/";
+    }
+
+    public static String SetFollow() {
+        return "http://" + IP + "/Article/setfollow/";
+    }
+    public static String FollowUserArticleList() {
+        return "http://" + IP + "/Article/followuserarticlelist/";
+    }
 
     public static String get_post_ColumnList(){
         return "http://"+IP+"/Column/list/";
@@ -68,5 +91,8 @@ public class HttpPath {
         return "http://" + IP + "/Column/setdislike/";
     }
 
+    public static String Selfinfo() {
+        return "http://" + IP + "/Article/selfinfo/";
+    }
 
 }

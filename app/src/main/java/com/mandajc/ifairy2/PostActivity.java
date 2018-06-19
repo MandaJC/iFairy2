@@ -8,7 +8,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -34,6 +36,7 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.ImageViewTarget;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
+import com.google.gson.JsonSyntaxException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,14 +45,19 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
+import Adapter.CommentAdapter;
+import Adapter.MainViewAdapter;
 import Adapter.MyPagerAdapter;
 import Adapter.MyViewPager;
+import Util.GsonUtils;
 import Util.HttpPath;
 import Util.ScreenUtil;
+import butterknife.BindColor;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import model.Article;
+import model.Comment;
 import volleyHttp.GsonRequest;
 import volleyHttp.volleyApplication;
 
@@ -67,7 +75,7 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
     @BindView(R.id.back_article)    Button back;
 
     @BindView(R.id.article_user1)   TextView article_user1;
-    @BindView(R.id.focus)   Button focus;
+    @BindView(R.id.follow)   Button follow;
     @BindView(R.id.img_article_user)    ImageView img_article_user;
     @BindView(R.id.article_user2)   TextView article_user2;
     @BindView(R.id.article_relative)    TextView article_relative;
@@ -75,6 +83,9 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
     @BindView(R.id.article_tag2)    Button article_tag2;
     @BindView(R.id.article_tag3)    Button article_tag3;
     @BindView(R.id.comment_list)    RecyclerView comment_list;
+    @BindView(R.id.edit_comment)    EditText edit_comment;
+    @BindView(R.id.btn_comment) Button btn_comment;
+    @BindColor(R.color.blank)   int blank;
 
     Article article;
     int pos, id;
@@ -88,6 +99,10 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
 
     private MyPagerAdapter mAdapter;
 
+    public List<Comment> mainItemsList = new ArrayList<>();
+    List<Comment> temp = new ArrayList<>();
+    public CommentAdapter adapter2;
+    boolean iscomment=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,9 +126,21 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
         article_user1.setText(article.getNickname());
         article_user2.setText(article.getNickname());
         article_relative.setText(article.getRelative());
-        article_tag1.setText(article.getTag());
-        article_tag2.setText(article.getTag2());
-        article_tag3.setText(article.getTag3());
+        if(!(article.getTag()==null) && !article.getTag().isEmpty()){
+            article_tag1.setText(article.getTag());
+        }else {
+            article_tag1.setVisibility(View.GONE);
+        }
+        if(!(article.getTag2()==null) && !article.getTag2().isEmpty()){
+            article_tag2.setText(article.getTag2());
+        }else {
+            article_tag2.setVisibility(View.GONE);
+        }
+        if(!(article.getTag3()==null) && !article.getTag3().isEmpty()){
+            article_tag3.setText(article.getTag3());
+        }else {
+            article_tag3.setVisibility(View.GONE);
+        }
         mQueue = Volley.newRequestQueue(this);
         checkLike(0);
         checkCollect(0);
@@ -121,6 +148,11 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
         btnLeft.setOnClickListener(this);
         btnRight.setOnClickListener(this);
         back.setOnClickListener(this);
+        btn_comment.setOnClickListener(this);
+        follow.setOnClickListener(this);
+//        while (!iscomment){
+            InitComment(1);
+//        }
     }
 
     @Override
@@ -134,11 +166,12 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.back_article:
                 finish();
-//                if(addedcollect || addedlike){
-//                    sendIntent();
-//                }else {
-//                    finish();
-//                }
+                break;
+            case R.id.btn_comment:
+                SendComment();
+                break;
+            case R.id.follow:
+                setFollow();
                 break;
         }
     }
@@ -416,10 +449,120 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
         mQueue.add(stringRequest);
     }
 
-    public void sendIntent(){
-        Intent intent = new Intent(PostActivity.this, MainActivity.class);
-        intent.putExtra("articleId",article.getId());
-        startActivity(intent);
+    public void SendComment(){
+        final String comment = edit_comment.getText().toString();
+        Log.e("idsend1", article.getId()+"");
+        StringRequest request=new StringRequest(Request.Method.POST,
+                HttpPath.CommentPost(),new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.e("onResponse: ", response);
+                Toast.makeText(PostActivity.this, response, Toast.LENGTH_SHORT).show();
+                InitComment(2);
+            }
+        },new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(),
+                        error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                // post 提交 重写参数 ，将自动 提交参数
+                Map<String,String> map=new HashMap<String, String>();
+                map.put("articleId",String.valueOf(article.getId()));
+                Log.e("idsend", article.getId()+"");
+                map.put("comment",comment);
+                map.put("commentuser",username);
+                return map;
+            }
+        };
+        mQueue.add(request);
+    }
+
+    public void InitComment(final int type) {
+        Log.e("idsend1", article.getId() + "");
+        StringRequest request = new StringRequest(Request.Method.POST,
+                HttpPath.CommentList(), new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                iscomment = true;
+                try {
+//                    if(mainItemsList.size()>0){
+//                        mainItemsList.clear();
+//                    }
+                    mainItemsList = GsonUtils.jsonToArrayList(response, Comment.class);
+                    if (mainItemsList.size()>0){
+                        Log.e("onResponse: ", mainItemsList.get(0).getComment());
+                    }
+                    if (type == 1) {
+                        adapter2 = new CommentAdapter(mainItemsList, username);
+                        LinearLayoutManager layoutManager2 = new LinearLayoutManager(PostActivity.this);
+                        comment_list.setLayoutManager(layoutManager2);
+                        comment_list.setAdapter(adapter2);
+                    } else if(type == 2){
+//                        temp.clear();
+//                        temp.addAll(mainItemsList);
+//                        mainItemsList.clear();
+//                        mainItemsList.addAll(temp);
+                        adapter2.update(mainItemsList);
+//                        adapter2.notifyDataSetChanged();
+                        comment_list.scrollToPosition(0);
+                    }
+//                    Log.e("Fragment1:", mainItemsList.get(0).getTitle());
+                } catch (JsonSyntaxException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(),
+                        error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                // post 提交 重写参数 ，将自动 提交参数
+                Map<String, String> map = new HashMap<String, String>();
+                map.put("articleId", String.valueOf(article.getId()));
+                Log.e("idsend", article.getId() + "");
+                return map;
+            }
+        };
+        mQueue.add(request);
+    }
+
+    public void setFollow(){
+        Log.e("followuser:", username);
+        StringRequest stringRequest=new StringRequest(Request.Method.POST,
+                HttpPath.SetFollow(),new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.e("setresponse:", response);
+                if(response.equals("关注成功")){
+                    follow.setBackgroundColor(blank);
+                }
+            }
+        },new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                // post 提交 重写参数 ，将自动 提交参数
+                Map<String,String> map=new HashMap<String, String>();
+                map.put("username",article.getUsername());
+                map.put("fansuser",username);
+                return map;
+            }
+        };
+        stringRequest.setTag("strPost");
+        mQueue.add(stringRequest);
     }
 }
+
 

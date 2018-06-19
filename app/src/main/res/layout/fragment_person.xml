@@ -5,11 +5,12 @@
     android:orientation="vertical">
     <include layout="@layout/actionbar_custom"></include>
     <LinearLayout
+        android:id="@+id/layout_to_selfActivity"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:orientation="horizontal"
         android:layout_marginTop="20dp">
-        <View.myImageView
+        <com.mandajc.ifairy2.myImageView
             android:id="@+id/headPortrait"
             android:layout_width="80dp"
             android:layout_height="80dp"
@@ -23,6 +24,13 @@
             android:textSize="20dp"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"/>
+        <ImageView
+            android:id="@+id/changeName"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/pen"/>
     </LinearLayout>
     <TextView
         android:id="@+id/introduction"
@@ -63,7 +71,7 @@
             android:orientation="vertical"
             android:layout_weight="1">
             <TextView
-                android:id="@+id/numOfAttention"
+                android:id="@+id/numOfFollow"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:text="1"

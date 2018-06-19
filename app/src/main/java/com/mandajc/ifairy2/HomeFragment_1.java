@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -21,7 +22,9 @@ import com.android.volley.toolbox.Volley;
 import com.google.gson.JsonSyntaxException;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import Adapter.MainViewAdapter;
 import Util.GsonUtils;
@@ -43,11 +46,12 @@ public class HomeFragment_1 extends PagerFragment implements View.OnClickListene
     private MainActivity mainActivity;
     RequestQueue mQueue;
     String username;
+    Bundle bundle;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-    // TODO Auto-generated method stub
+        // TODO Auto-generated method stub
         View view = inflater.inflate(R.layout.fragment_home_1, null);
         ButterKnife.bind(this, view);
         ViewCompat.setElevation(view, 50);
@@ -57,7 +61,7 @@ public class HomeFragment_1 extends PagerFragment implements View.OnClickListene
 //        search.setOnClickListener(this);
         Log.e("//", "HomeFragment_1");
         return view;
-}
+    }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -83,19 +87,19 @@ public class HomeFragment_1 extends PagerFragment implements View.OnClickListene
         mainActivity = (MainActivity)context;
     }
 
-    private  void initMainItem(){
-        StringRequest request = new StringRequest(Request.Method.GET,
-                HttpPath.get_post_ArticleList(), new Response.Listener<String>() {
+    public void initMainItem() {
+        Log.e("home1: ", username);
+        StringRequest request = new StringRequest(Request.Method.POST,
+                HttpPath.FollowUserArticleList(), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
                     mainItemsList = GsonUtils.jsonToArrayList(response, Article.class);
-
                     adapter2 = new MainViewAdapter(mainItemsList, username);
                     StaggeredGridLayoutManager layoutManager2 = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
                     mainItem.setAdapter(adapter2);
                     mainItem.setLayoutManager(layoutManager2);
-                    Log.e("Fragment1:", mainItemsList.get(1).getTitle());
+                    Log.e("Fragment1:", mainItemsList.get(0).getTitle());
                 }catch (JsonSyntaxException e){
                     e.printStackTrace();
                 }
@@ -106,9 +110,29 @@ public class HomeFragment_1 extends PagerFragment implements View.OnClickListene
                 Toast.makeText(getContext(),
                         error.getMessage(), Toast.LENGTH_SHORT).show();
             }
-        });
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                // post 提交 重写参数 ，将自动 提交参数
+                Map<String,String> map=new HashMap<String, String>();
+                map.put("username",username);
+                return map;
+            }
+        };
         mQueue.add(request);
-        //volleyApplication.getQueue().add(request);
     }
+
+    @Override
+    public void reBundle(Bundle bundle) {
+        this.bundle = bundle;
+    };
+    @Override
+    public void reUser(String username) {
+        this.username = username;
+    };
+    @Override
+    public void reData(List<Article> articleList) {
+        mainItemsList = articleList;
+    };
 }
 

@@ -1,12 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_marginTop="100dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="用户名"
+            android:textSize="18dp"
+            android:gravity="center"
+            android:layout_marginLeft="30dp"/>
+
+        <EditText
+            android:id="@+id/userName"
+            android:layout_width="227dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="30dp"
+            android:hint="请在此处输入用户名" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="40dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="密     码"
+            android:textSize="18dp"
+            android:gravity="center"
+            android:layout_marginLeft="30dp"/>
+
+        <EditText
+            android:id="@+id/userPassword"
+            android:layout_width="227dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="30dp"
+            android:hint="请在此处输入密码"
+            android:inputType="textPassword"/>
+    </LinearLayout>
 
     <Button
-        android:layout_width="match_parent"
+        android:id="@+id/ensureLogin"
+        android:layout_width="110dp"
         android:layout_height="wrap_content"
-        android:text="登录"
-        android:onClick="Click"/>
-
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/btn_shape"
+        android:text="确   定"
+        android:textSize="18dp"/>
+    <Button
+        android:id="@+id/toRegist"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/btn_shape"
+        android:text="注   册"
+        android:textSize="18dp"/>
 </LinearLayout>
