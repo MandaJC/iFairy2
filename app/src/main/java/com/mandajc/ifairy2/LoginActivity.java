@@ -1,6 +1,7 @@
 package com.mandajc.ifairy2;
 
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -45,6 +46,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        ActionBar actionBar = getSupportActionBar();
+        if(actionBar != null){actionBar.hide();}
         ButterKnife.bind(this);
         ensureLogin = (Button)findViewById(R.id.ensureLogin);
         toRegist = (Button)findViewById(R.id.toRegist);
@@ -105,7 +108,7 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this,"登录成功！",Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(LoginActivity.this,MainActivity.class);
                     intent.putExtra("start_mode", 1);
-                    intent.putExtra("username", "mandajc666");
+                    intent.putExtra("username", userName.getText().toString());
                     startActivity(intent);
                 }else {
                     Toast.makeText(LoginActivity.this,"与服务器失去连接！",Toast.LENGTH_SHORT).show();

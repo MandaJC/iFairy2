@@ -89,23 +89,24 @@ public class HomeFragment_3 extends PagerFragment {
                         mainItemsList = GsonUtils.jsonToArrayList(response, Column.class);
                         if(mainItemsList.size()>0){
                             Log.e("Fragment3:", mainItemsList.get(0).getTitle());
+
+                            adapter2 = new ColumnViewAdapter(mainItemsList, username, getContext());
+                            adapter2.setOnLikeClickListener(new ColumnViewAdapter.LikeListener() {
+                                @Override
+                                public void onLikeClick(int pos) {
+                                    checkLike(pos);
+                                }
+                            });
+                            adapter2.setOnDislikeClickListener(new ColumnViewAdapter.DislikeListener() {
+                                @Override
+                                public void onDislikeClick(int pos) {
+                                    checkDislike(pos);
+                                }
+                            });
+                            LinearLayoutManager layoutManager2 = new LinearLayoutManager(getContext());
+                            mainItem.setAdapter(adapter2);
+                            mainItem.setLayoutManager(layoutManager2);
                         }
-                        adapter2 = new ColumnViewAdapter(mainItemsList, username, getContext());
-                        adapter2.setOnLikeClickListener(new ColumnViewAdapter.LikeListener() {
-                            @Override
-                            public void onLikeClick(int pos) {
-                                checkLike(pos);
-                            }
-                        });
-                        adapter2.setOnDislikeClickListener(new ColumnViewAdapter.DislikeListener() {
-                            @Override
-                            public void onDislikeClick(int pos) {
-                                checkDislike(pos);
-                            }
-                        });
-                        LinearLayoutManager layoutManager2 = new LinearLayoutManager(getContext());
-                        mainItem.setAdapter(adapter2);
-                        mainItem.setLayoutManager(layoutManager2);
                     }catch (JsonSyntaxException e){
                         e.printStackTrace();
                     }

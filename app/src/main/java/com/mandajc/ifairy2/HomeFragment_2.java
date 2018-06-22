@@ -95,12 +95,13 @@ public class HomeFragment_2 extends PagerFragment implements View.OnClickListene
                 public void onResponse(String response) {
                     try {
                         mainItemsList = GsonUtils.jsonToArrayList(response, Article.class);
-
-                        adapter2 = new MainViewAdapter(mainItemsList, username);
-                        StaggeredGridLayoutManager layoutManager2 = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-                        mainItem.setAdapter(adapter2);
-                        mainItem.setLayoutManager(layoutManager2);
-                        Log.e("Fragment1:", mainItemsList.get(0).getTitle());
+                        if(mainItemsList.size()>0){
+                            adapter2 = new MainViewAdapter(mainItemsList, username);
+                            StaggeredGridLayoutManager layoutManager2 = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+                            mainItem.setAdapter(adapter2);
+                            mainItem.setLayoutManager(layoutManager2);
+                            Log.e("Fragment2:", mainItemsList.get(0).getPhoto1());
+                        }
                     }catch (JsonSyntaxException e){
                         e.printStackTrace();
                     }
@@ -113,14 +114,6 @@ public class HomeFragment_2 extends PagerFragment implements View.OnClickListene
                 }
             });
             mQueue.add(request);
-//        }else if(start_mode == 2){//搜索界面启动
-//            username = bundle.getString("username");
-////            search_tag = bundle.getString("tag");
-////            mainItemsList = (List<Article>) bundle.getSerializable("data");
-//            adapter2 = new MainViewAdapter(mainItemsList, username);
-//            StaggeredGridLayoutManager layoutManager2 = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-//            mainItem.setAdapter(adapter2);
-//            mainItem.setLayoutManager(layoutManager2);
         }
     }
 

@@ -151,7 +151,8 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
         btn_comment.setOnClickListener(this);
         follow.setOnClickListener(this);
 //        while (!iscomment){
-            InitComment(1);
+        edit_comment.clearFocus();
+        InitComment(1);
 //        }
     }
 
@@ -457,7 +458,7 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onResponse(String response) {
                 Log.e("onResponse: ", response);
-                Toast.makeText(PostActivity.this, response, Toast.LENGTH_SHORT).show();
+                Toast.makeText(PostActivity.this, "发表成功", Toast.LENGTH_SHORT).show();
                 InitComment(2);
             }
         },new Response.ErrorListener() {
@@ -489,26 +490,25 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
             public void onResponse(String response) {
                 iscomment = true;
                 try {
-//                    if(mainItemsList.size()>0){
-//                        mainItemsList.clear();
-//                    }
                     mainItemsList = GsonUtils.jsonToArrayList(response, Comment.class);
                     if (mainItemsList.size()>0){
                         Log.e("onResponse: ", mainItemsList.get(0).getComment());
-                    }
-                    if (type == 1) {
-                        adapter2 = new CommentAdapter(mainItemsList, username);
-                        LinearLayoutManager layoutManager2 = new LinearLayoutManager(PostActivity.this);
-                        comment_list.setLayoutManager(layoutManager2);
-                        comment_list.setAdapter(adapter2);
-                    } else if(type == 2){
-//                        temp.clear();
-//                        temp.addAll(mainItemsList);
-//                        mainItemsList.clear();
-//                        mainItemsList.addAll(temp);
-                        adapter2.update(mainItemsList);
-//                        adapter2.notifyDataSetChanged();
-                        comment_list.scrollToPosition(0);
+                        if (type == 1) {
+                            adapter2 = new CommentAdapter(mainItemsList, username);
+                            LinearLayoutManager layoutManager2 = new LinearLayoutManager(PostActivity.this);
+                            comment_list.setLayoutManager(layoutManager2);
+                            comment_list.setAdapter(adapter2);
+                        } else if(type == 2){
+                            if(mainItemsList.size()==1){
+                                adapter2 = new CommentAdapter(mainItemsList, username);
+                                LinearLayoutManager layoutManager2 = new LinearLayoutManager(PostActivity.this);
+                                comment_list.setLayoutManager(layoutManager2);
+                                comment_list.setAdapter(adapter2);
+                            }else {
+                                adapter2.update(mainItemsList);
+                                comment_list.scrollToPosition(0);
+                            }
+                        }
                     }
 //                    Log.e("Fragment1:", mainItemsList.get(0).getTitle());
                 } catch (JsonSyntaxException e) {

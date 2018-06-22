@@ -1,6 +1,7 @@
 package com.mandajc.ifairy2;
 
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +16,8 @@ public class StartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
+        ActionBar actionBar = getSupportActionBar();
+        if(actionBar != null){actionBar.hide();}
         login = (Button)findViewById(R.id.login);
         regist = (Button)findViewById(R.id.regist);
         login.setOnClickListener(new View.OnClickListener() {

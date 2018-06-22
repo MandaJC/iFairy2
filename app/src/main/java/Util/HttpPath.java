@@ -1,10 +1,10 @@
 package Util;
 
 public class HttpPath {
-    private static final String IP="192.168.199.209:8000";
-//	private static final String IP="10.0.2.2:8000";
-//	private static final String IP="mandajc.xicp.io:17881";
-
+//    private static final String IP="192.168.199.209:8000";
+//	private static final String IP="172.19.89.112:8000";
+	private static final String IP="mandajc.xicp.io:17881";
+    private static final String qnyIP="papfvr9g2.bkt.clouddn.com";
     public static String get_post_ArticleList(){
         return "http://"+IP+"/Article/list/";
     }
@@ -12,10 +12,10 @@ public class HttpPath {
         return "http://"+IP+"/Article/detail/"+id;
     }
     public static String getPic(String imgAddr){
-        return "http://"+IP+imgAddr;
+        return imgAddr;
     }
     public static String getcenterPic(String imgAddr){
-        return "http://"+IP+"/res/images/"+imgAddr;
+        return imgAddr;//"http://"+qnyIP+"/res/images/"+imgAddr;
     }
 
     public static String Register() {

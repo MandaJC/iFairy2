@@ -32,11 +32,11 @@
                 android:textSize="15sp"
                 android:text="标题待加载......"/>
 
-            <Button
-                android:background="@drawable/xia"
-                android:id="@+id/notLike"
-                android:layout_width="20sp"
-                android:layout_height="20sp" />
+            <!--<Button-->
+                <!--android:background="@drawable/xia"-->
+                <!--android:id="@+id/notLike"-->
+                <!--android:layout_width="20sp"-->
+                <!--android:layout_height="20sp" />-->
         </LinearLayout>
         <RelativeLayout
             android:layout_width="match_parent"

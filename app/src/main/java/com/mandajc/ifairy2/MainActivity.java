@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity{
         Intent intent = getIntent();
         start_mode = intent.getIntExtra("start_mode", 0);
         username = intent.getStringExtra("username");//判断==1
-        Toast.makeText(MainActivity.this, "start_mode:"+start_mode, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(MainActivity.this, "start_mode:"+start_mode, Toast.LENGTH_SHORT).show();
         if(start_mode==2){
             processExtraData();
         }else {

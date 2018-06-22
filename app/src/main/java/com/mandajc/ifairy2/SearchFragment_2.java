@@ -104,12 +104,11 @@ public class SearchFragment_2 extends Fragment {
                     for(int i = 0; i < mainItemsList.size(); i++){
                         Log.e("SearchFrag:", mainItemsList.get(i).getTitle());
                     }
-
                     adapter2 = new MainViewAdapter(mainItemsList, username);
                     StaggeredGridLayoutManager layoutManager2 = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
                     mainItem.setAdapter(adapter2);
                     mainItem.setLayoutManager(layoutManager2);
-                    Log.e("Fragment1:", mainItemsList.get(1).getTitle());
+                    Log.e("Fragment1:", mainItemsList.get(0).getTitle());
                 }
             }
         },new Response.ErrorListener() {

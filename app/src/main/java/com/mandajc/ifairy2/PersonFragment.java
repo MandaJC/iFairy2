@@ -211,7 +211,7 @@ public class PersonFragment extends Fragment implements View.OnClickListener{
                     }
                     @Override
                     public void onSuccess(ResponseInfo<String> arg0) {
-                        Toast.makeText(getContext(), arg0.toString(), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getContext(), arg0.toString(), Toast.LENGTH_SHORT).show();
                         Log.i("changePhoto", arg0.result.toString());
                     }
                 });
@@ -223,7 +223,7 @@ public class PersonFragment extends Fragment implements View.OnClickListener{
                 HttpPath.changeNickName(),new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(getContext(), response, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "昵称修改成功", Toast.LENGTH_SHORT).show();
             }
         },new Response.ErrorListener() {
             @Override
@@ -258,7 +258,7 @@ public class PersonFragment extends Fragment implements View.OnClickListener{
                 person_name.setText(String.valueOf(selfInfo.getNickname()));
                 Log.e("path:", selfInfo.getHeadimg());
                 Glide.with(getContext())
-                        .load(HttpPath.getcenterPic(selfInfo.getHeadimg()))
+                        .load(HttpPath.getPic(selfInfo.getHeadimg()))
                         .asBitmap()
                         .listener(new RequestListener<String, Bitmap>() {
                             @Override

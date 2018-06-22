@@ -423,66 +423,66 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
      * @param errorListener
      */
 
-    public static void addPutUploadFileRequest(final Map<String, File> files,
-                                               final Map<String, String> params,
-                                               final com.android.volley.Response.Listener<String> responseListener,
-                                               final com.android.volley.Response.ErrorListener errorListener) {
-//        if (null == url || null == responseListener) {
-//            return;
+//    public static void addPutUploadFileRequest(final Map<String, File> files,
+//                                               final Map<String, String> params,
+//                                               final com.android.volley.Response.Listener<String> responseListener,
+//                                               final com.android.volley.Response.ErrorListener errorListener) {
+////        if (null == url || null == responseListener) {
+////            return;
+////        }
+//
+//        MultiPartStringRequest multiPartRequest = new MultiPartStringRequest(
+//                Request.Method.POST, HttpPath.get_post_ArticleList(), responseListener, errorListener) {
+//
+//            @Override
+//            public Map<String, File> getFileUploads() {
+//                return files;
+//            }
+//
+//            @Override
+//            public Map<String, String> getStringUploads() {
+//                return params;
+//            }
+//
+//        };
+//        mQueue.add(multiPartRequest);
+//    }
+//
+//    com.android.volley.Response.Listener<JSONObject> mResonseListener = new com.android.volley.Response.Listener<JSONObject>() {
+//
+//        @Override
+//        public void onResponse(JSONObject response) {
+//            try {
+//                Gson gson = new Gson();
+//                Article article = gson.fromJson(response.toString(), Article.class);
+//            }catch (JsonSyntaxException e){
+//                e.printStackTrace();
+//            }
 //        }
-
-        MultiPartStringRequest multiPartRequest = new MultiPartStringRequest(
-                Request.Method.POST, HttpPath.get_post_ArticleList(), responseListener, errorListener) {
-
-            @Override
-            public Map<String, File> getFileUploads() {
-                return files;
-            }
-
-            @Override
-            public Map<String, String> getStringUploads() {
-                return params;
-            }
-
-        };
-        mQueue.add(multiPartRequest);
-    }
-
-    com.android.volley.Response.Listener<JSONObject> mResonseListener = new com.android.volley.Response.Listener<JSONObject>() {
-
-        @Override
-        public void onResponse(JSONObject response) {
-            try {
-                Gson gson = new Gson();
-                Article article = gson.fromJson(response.toString(), Article.class);
-            }catch (JsonSyntaxException e){
-                e.printStackTrace();
-            }
-        }
-    };
-
-    com.android.volley.Response.Listener<String> mResonseListenerString = new com.android.volley.Response.Listener<String>() {
-
-        @Override
-        public void onResponse(String response) {
-            try {
-                Gson gson = new Gson();
-                Article article = gson.fromJson(response, Article.class);
-            }catch (JsonSyntaxException e){
-                e.printStackTrace();
-            }
-        }
-    };
-
-    com.android.volley.Response.ErrorListener mErrorListener = new com.android.volley.Response.ErrorListener() {
-
-        @Override
-        public void onErrorResponse(VolleyError error) {
-            if (error != null) {
-                if (error.networkResponse != null)
-                    Log.i("3", " error "
-                            + new String(error.networkResponse.data));
-            }
-        }
-    };
+//    };
+//
+//    com.android.volley.Response.Listener<String> mResonseListenerString = new com.android.volley.Response.Listener<String>() {
+//
+//        @Override
+//        public void onResponse(String response) {
+//            try {
+//                Gson gson = new Gson();
+//                Article article = gson.fromJson(response, Article.class);
+//            }catch (JsonSyntaxException e){
+//                e.printStackTrace();
+//            }
+//        }
+//    };
+//
+//    com.android.volley.Response.ErrorListener mErrorListener = new com.android.volley.Response.ErrorListener() {
+//
+//        @Override
+//        public void onErrorResponse(VolleyError error) {
+//            if (error != null) {
+//                if (error.networkResponse != null)
+//                    Log.i("3", " error "
+//                            + new String(error.networkResponse.data));
+//            }
+//        }
+//    };
 }

@@ -1,6 +1,7 @@
 package com.mandajc.ifairy2;
 
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -53,6 +54,8 @@ public class MyEssayActivity extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_essay);
+        ActionBar actionBar = getSupportActionBar();
+        if(actionBar != null){actionBar.hide();}
         ButterKnife.bind(this);
         mQueue = Volley.newRequestQueue(this);
         back_essay.setOnClickListener(this);
@@ -79,12 +82,14 @@ public class MyEssayActivity extends AppCompatActivity implements View.OnClickLi
                 try {
                     mainItemsList = GsonUtils.jsonToArrayList(response, Article.class);
 /////////////////////////////////////////////////////////////////////////////////////////////////////可能要换Adapter
-                    adapter2 = new MainViewAdapter(mainItemsList, username);
-                    StaggeredGridLayoutManager layoutManager2 = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+                    if(mainItemsList.size()>0){
+                        adapter2 = new MainViewAdapter(mainItemsList, username);
+                        StaggeredGridLayoutManager layoutManager2 = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
 //                    GridLayoutManager layoutManager2 = new GridLayoutManager(MyEssayActivity.this, 2);
-                    myWhatRecycler.setAdapter(adapter2);
-                    myWhatRecycler.setLayoutManager(layoutManager2);
-                    Log.e("Fragment1:", mainItemsList.get(0).getTitle());
+                        myWhatRecycler.setAdapter(adapter2);
+                        myWhatRecycler.setLayoutManager(layoutManager2);
+                        Log.e("Fragment1:", mainItemsList.get(0).getTitle());
+                    }
                 }catch (JsonSyntaxException e){
                     e.printStackTrace();
                 }

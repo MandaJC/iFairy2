@@ -1,6 +1,7 @@
 package com.mandajc.ifairy2;
 
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -51,6 +52,8 @@ public class CollectActivity extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_essay);
+        ActionBar actionBar = getSupportActionBar();
+        if(actionBar != null){actionBar.hide();}
         ButterKnife.bind(this);
         mQueue = Volley.newRequestQueue(this);
         back_essay.setOnClickListener(this);
@@ -91,8 +94,7 @@ public class CollectActivity extends AppCompatActivity implements View.OnClickLi
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(CollectActivity.this,
-                        error.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(CollectActivity.this,error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }){
             @Override

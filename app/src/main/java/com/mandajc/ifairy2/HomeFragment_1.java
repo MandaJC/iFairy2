@@ -95,11 +95,13 @@ public class HomeFragment_1 extends PagerFragment implements View.OnClickListene
             public void onResponse(String response) {
                 try {
                     mainItemsList = GsonUtils.jsonToArrayList(response, Article.class);
-                    adapter2 = new MainViewAdapter(mainItemsList, username);
-                    StaggeredGridLayoutManager layoutManager2 = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-                    mainItem.setAdapter(adapter2);
-                    mainItem.setLayoutManager(layoutManager2);
-                    Log.e("Fragment1:", mainItemsList.get(0).getTitle());
+                    if(mainItemsList.size()>0){
+                        adapter2 = new MainViewAdapter(mainItemsList, username);
+                        StaggeredGridLayoutManager layoutManager2 = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+                        mainItem.setAdapter(adapter2);
+                        mainItem.setLayoutManager(layoutManager2);
+                        Log.e("Fragment1:", mainItemsList.get(0).getTitle());
+                    }
                 }catch (JsonSyntaxException e){
                     e.printStackTrace();
                 }
