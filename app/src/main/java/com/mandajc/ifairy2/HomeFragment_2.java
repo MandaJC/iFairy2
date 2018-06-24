@@ -101,6 +101,8 @@ public class HomeFragment_2 extends PagerFragment implements View.OnClickListene
                             mainItem.setAdapter(adapter2);
                             mainItem.setLayoutManager(layoutManager2);
                             Log.e("Fragment2:", mainItemsList.get(0).getPhoto1());
+                            Log.e("Fragment2:", mainItemsList.get(0).getUsername());
+                            Log.e("第一篇文章:", mainItemsList.get(0).getTitle());
                         }
                     }catch (JsonSyntaxException e){
                         e.printStackTrace();
@@ -109,38 +111,14 @@ public class HomeFragment_2 extends PagerFragment implements View.OnClickListene
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(getContext(),
-                            error.getMessage(), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
             mQueue.add(request);
         }
     }
 
-//    public void sendDataRequest(){
-//        StringRequest request = new StringRequest(Request.Method.GET,
-//                HttpPath.get_post_ArticleList(), new Response.Listener<String>() {
-//            @Override
-//            public void onResponse(String response) {
-//                try {
-//                    if(mainItemsList.size() > 0){
-//                        mainItemsList.clear();
-//                    }
-//                    mainItemsList = GsonUtils.jsonToArrayList(response, Article.class);
-//                    adapter2.notifyDataSetChanged();
-//                } catch (JsonSyntaxException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                Toast.makeText(getContext(),
-//                        error.getMessage(), Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//        mQueue.add(request);
-//    }
+
 
     @Override
     public void reBundle(Bundle bundle) {

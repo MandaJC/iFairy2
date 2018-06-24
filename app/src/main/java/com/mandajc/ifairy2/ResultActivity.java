@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -55,17 +56,20 @@ import butterknife.OnClick;
 import model.Article;
 
 public class ResultActivity extends AppCompatActivity implements View.OnClickListener {
-    @BindView(R.id.relative1)   Button relative1;
-    @BindView(R.id.relative2)   Button relative2;
-    @BindView(R.id.relative3)   Button relative3;
-    @BindView(R.id.relative4)   Button relative4;
-    @BindView(R.id.relative5)   Button relative5;
-    @BindView(R.id.relative0)   Button relative0;
+    @BindView(R.id.relative1)
+    TextView relative1;
+    @BindView(R.id.relative2)   TextView relative2;
+    @BindView(R.id.relative3)   TextView relative3;
+    @BindView(R.id.relative4)   TextView relative4;
+    @BindView(R.id.relative5)   TextView relative5;
+    @BindView(R.id.relative0)   TextView relative0;
+    @BindView(R.id.back)    ImageView back;
     @BindView(R.id.tag1)    EditText tag1;
     @BindView(R.id.tag2)    EditText tag2;
     @BindView(R.id.tag3)    EditText tag3;
     @BindColor(R.color.bluegreen)   int bluegreen;
     @BindColor(R.color.blank)   int blank;
+    @BindColor(R.color.white)   int black;
     boolean[] isRelative = {false, false, false, false, false, false};
     private ImageView imageView0;
     private ImageView imageView1;
@@ -121,6 +125,7 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
         relativeTip[5] = relative5.getText().toString();
         relative0.setOnClickListener(this);
         relativeTip[0] = relative0.getText().toString();
+        back.setOnClickListener(this);
 
         imageView0 = (ImageView)findViewById(R.id.picture0);
         imageView1 = (ImageView)findViewById(R.id.picture1);
@@ -175,54 +180,66 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.relative0:
                 if(isRelative[0]){
                     relative0.setBackgroundColor(blank);
+                    relative0.setTextColor(black);
                     isRelative[0] = false;
                 }else {
                     relative0.setBackgroundColor(bluegreen);
+                    relative0.setTextColor(blank);
                     isRelative[0] = true;
                 }
                 break;
             case R.id.relative1:
                 if(isRelative[1]){
                     relative1.setBackgroundColor(blank);
+                    relative1.setTextColor(black);
                     isRelative[1] = false;
                 }else {
                     relative1.setBackgroundColor(bluegreen);
+                    relative1.setTextColor(blank);
                     isRelative[1] = true;
                 }
                 break;
             case R.id.relative2:
                 if(isRelative[2]){
                     relative2.setBackgroundColor(blank);
+                    relative2.setTextColor(black);
                     isRelative[2] = false;
                 }else {
                     relative2.setBackgroundColor(bluegreen);
+                    relative2.setTextColor(blank);
                     isRelative[2] = true;
                 }
                 break;
             case R.id.relative3:
                 if(isRelative[3]){
                     relative3.setBackgroundColor(blank);
+                    relative3.setTextColor(black);
                     isRelative[3] = false;
                 }else {
                     relative3.setBackgroundColor(bluegreen);
+                    relative3.setTextColor(blank);
                     isRelative[3] = true;
                 }
                 break;
             case R.id.relative4:
                 if(isRelative[4]){
                     relative4.setBackgroundColor(blank);
+                    relative4.setTextColor(black);
                     isRelative[4] = false;
                 }else {
                     relative4.setBackgroundColor(bluegreen);
+                    relative4.setTextColor(blank);
                     isRelative[4] = true;
                 }
                 break;
             case R.id.relative5:
                 if(isRelative[5]){
                     relative5.setBackgroundColor(blank);
+                    relative5.setTextColor(black);
                     isRelative[5] = false;
                 }else {
                     relative5.setBackgroundColor(bluegreen);
+                    relative5.setTextColor(blank);
                     isRelative[5] = true;
                 }
                 break;
@@ -236,6 +253,8 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
                 showFile();
                 showXUtils();
                 break;
+            case R.id.back:
+                finish();
         }
     }
 
@@ -366,7 +385,7 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
         if(relativeMsg.toString().length()>0){
             params.addBodyParameter("relative", relativeMsg.toString());
         }
-//        Log.e("changePhoto: ", file[0].getAbsolutePath()+file[0].getName());
+        Log.e("changePhoto: ", file[0].getAbsolutePath()+" and "+file[0].getName());
         switch (paths.size()){
             case 1:
                 params.addBodyParameter("photo1", file[0]);
@@ -403,7 +422,7 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
 
                     @Override
                     public void onSuccess(ResponseInfo<String> responseInfo) {
-                        Log.e("onSuccess: ", responseInfo.result);
+                        Log.e("newArticleSuccess: ", responseInfo.result);
                         Intent intent = new Intent(ResultActivity.this, MainActivity.class);
                         intent.putExtra("start_mode", 1);
                         intent.putExtra("username", username);

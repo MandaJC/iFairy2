@@ -16,7 +16,7 @@
             android:text="用户名"
             android:textSize="18dp"
             android:gravity="center"
-            android:layout_marginLeft="30dp"/>
+            android:layout_marginLeft="50dp"/>
 
         <EditText
             android:id="@+id/userName"
@@ -24,7 +24,7 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="30dp"
-            android:hint="请在此处输入用户名" />
+            android:hint="请在此处输入用户名"/>
     </LinearLayout>
 
     <LinearLayout
@@ -39,7 +39,7 @@
             android:text="密     码"
             android:textSize="18dp"
             android:gravity="center"
-            android:layout_marginLeft="30dp"/>
+            android:layout_marginLeft="50dp"/>
 
         <EditText
             android:id="@+id/userPassword"
@@ -53,20 +53,22 @@
 
     <Button
         android:id="@+id/ensureLogin"
-        android:layout_width="110dp"
-        android:layout_height="wrap_content"
+        android:layout_width="117dp"
+        android:layout_height="36dp"
         android:layout_gravity="center"
         android:layout_marginTop="50dp"
         android:background="@drawable/btn_shape"
         android:text="确   定"
+        style="?android:attr/borderlessButtonStyle"
         android:textSize="18dp"/>
     <Button
         android:id="@+id/toRegist"
-        android:layout_width="110dp"
-        android:layout_height="wrap_content"
+        android:layout_width="117dp"
+        android:layout_height="36dp"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:background="@drawable/btn_shape"
+        style="?android:attr/borderlessButtonStyle"
         android:text="注   册"
         android:textSize="18dp"/>
 </LinearLayout>

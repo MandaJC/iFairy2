@@ -58,7 +58,7 @@
                     android:id="@+id/search"
                     android:layout_width="20sp"
                     android:layout_height="20sp"
-                    android:background="@drawable/search"/>
+                    android:background="@drawable/search" />
                 <Button
                     android:id="@+id/notice"
                     android:layout_width="20sp"
@@ -81,7 +81,7 @@
                 android:layout_width="40dip"
                 android:layout_height="2dip"
                 android:scaleType="matrix"
-                android:src="#f00" />
+                android:src="@color/colorPrimary" />
         </LinearLayout>
     </LinearLayout>
 

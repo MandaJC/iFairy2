@@ -13,7 +13,8 @@
         android:id="@+id/radioGroup1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:layout_marginBottom="10sp">
 
         <RadioButton
             android:id="@+id/radio0"
@@ -24,9 +25,7 @@
             android:drawableTop="@drawable/shouye"
             android:gravity="center_horizontal"
             android:checked="true"
-            android:textSize="15sp"
-            android:textColor="@color/cardview_dark_background"
-            android:text="首页" />
+            android:textSize="0sp"/>
         <RadioButton
             android:id="@+id/radio1"
             android:layout_width="wrap_content"
@@ -36,7 +35,7 @@
             android:paddingTop="10sp"
             android:drawableTop="@drawable/add1"
             android:gravity="center_horizontal"
-            android:textColor="@color/cardview_dark_background"/>
+            android:textSize="0sp"/>
         <RadioButton
             android:id="@+id/radio2"
             android:layout_width="wrap_content"
@@ -45,9 +44,7 @@
             android:button="@null"
             android:drawableTop="@drawable/me"
             android:gravity="center_horizontal"
-            android:textSize="15sp"
-            android:textColor="@color/cardview_dark_background"
-            android:text="个人" />
+            android:textSize="0sp"/>
     </RadioGroup>
 
 </LinearLayout>

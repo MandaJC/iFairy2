@@ -93,6 +93,7 @@ public class HomeFragment_1 extends PagerFragment implements View.OnClickListene
                 HttpPath.FollowUserArticleList(), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                Log.e("获取关注用户文章: ", "成功！");
                 try {
                     mainItemsList = GsonUtils.jsonToArrayList(response, Article.class);
                     if(mainItemsList.size()>0){
@@ -109,8 +110,7 @@ public class HomeFragment_1 extends PagerFragment implements View.OnClickListene
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(),
-                        error.getMessage(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }){
             @Override

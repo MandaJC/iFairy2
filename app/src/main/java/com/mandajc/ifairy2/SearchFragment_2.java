@@ -97,6 +97,7 @@ public class SearchFragment_2 extends Fragment {
                 HttpPath.getTagArticle(),new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                Log.e("搜索:", "成功！");
                 if(response.equals("Tag不存在")){
                     Toast.makeText(getActivity(), response, Toast.LENGTH_SHORT).show();
                 }else {

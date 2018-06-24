@@ -3,46 +3,56 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <include layout="@layout/actionbar_custom"></include>
+    <!--<include layout="@layout/actionbar_custom"></include>-->
     <LinearLayout
         android:id="@+id/layout_to_selfActivity"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:orientation="horizontal"
-        android:layout_marginTop="20dp">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_weight="1">
         <com.mandajc.ifairy2.myImageView
             android:id="@+id/headPortrait"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:src="@drawable/bg2"
+            android:layout_gravity="center"
             android:layout_marginLeft="20dp"/>
-        <TextView
-            android:id="@+id/person_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="本喵"
-            android:textSize="20dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="10dp"/>
-        <ImageView
-            android:id="@+id/changeName"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/pen"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/person_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="本喵"
+                android:textSize="20dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_centerVertical="true"/>
+            <ImageView
+                android:id="@+id/changeName"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_toEndOf="@id/person_name"
+                android:layout_marginLeft="10dp"
+                android:layout_alignBaseline="@id/person_name"
+                android:background="@drawable/pen"/>
+            <TextView
+                android:id="@+id/introduction"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TA很懒，什么都没留下"
+                android:layout_alignStart="@id/person_name"
+                android:layout_below="@id/person_name"
+                android:layout_marginTop="30sp"/>
+        </RelativeLayout>
     </LinearLayout>
-    <TextView
-        android:id="@+id/introduction"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TA很懒，什么都没留下"
-        android:layout_marginLeft="110dp"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:orientation="horizontal"
-        android:layout_marginTop="15dp">
+        android:layout_marginTop="15dp"
+        android:layout_weight="1">
         <LinearLayout
             android:layout_width="70dp"
             android:layout_height="60dp"
@@ -128,46 +138,54 @@
                 android:textAlignment="center"/>
         </LinearLayout>
     </LinearLayout>
-
-    <Button
-        android:id="@+id/browseCollection"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="35dp"
-        android:text="收藏|浏览"
-        android:background="@drawable/shape2"
-        android:textSize="20dp"/>
-    <Button
-        android:id="@+id/myEssay"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/shape2"
-        android:text="我的文章"
-        android:textSize="20dp"/>
-    <Button
-        android:id="@+id/set"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/shape2"
-        android:text="设置中心"
-        android:textSize="20dp"/>
-    <Button
-        android:id="@+id/exit"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/shape2"
-        android:text="退出登录"
-        android:textSize="20dp"/>
-
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="10sp"
+        android:layout_weight="1">
+        <Button
+            android:id="@+id/browseCollection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text="我的收藏"
+            android:background="@drawable/shape2"
+            android:textSize="20dp"
+            android:layout_weight="1"/>
+        <Button
+            android:id="@+id/myEssay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/shape2"
+            android:text="我的文章"
+            android:textSize="20dp"
+            android:layout_weight="1"/>
+        <Button
+            android:id="@+id/set"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/shape2"
+            android:text="设置中心"
+            android:textSize="20dp"
+            android:layout_weight="1"/>
+        <Button
+            android:id="@+id/exit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/shape2"
+            android:text="退出登录"
+            android:textSize="20dp"
+            android:layout_weight="1"/>
+    </LinearLayout>
 </LinearLayout>

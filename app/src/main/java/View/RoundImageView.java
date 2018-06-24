@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Path;
 import android.os.Build;
 import android.support.v4.widget.ImageViewCompat;
+import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,7 +14,7 @@ import android.widget.ImageView;
  * Created by lyzwj on 2018/5/6.
  */
 
-public class RoundImageView extends ImageView {
+public class RoundImageView extends AppCompatImageView {
 
     float width,height;
     int Radius = 10;

@@ -85,11 +85,11 @@ public class HomeFragment_3 extends PagerFragment {
                     HttpPath.get_post_ColumnList(), new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
+                    Log.e("专栏: ", "成功!");
                     try {
                         mainItemsList = GsonUtils.jsonToArrayList(response, Column.class);
                         if(mainItemsList.size()>0){
                             Log.e("Fragment3:", mainItemsList.get(0).getTitle());
-
                             adapter2 = new ColumnViewAdapter(mainItemsList, username, getContext());
                             adapter2.setOnLikeClickListener(new ColumnViewAdapter.LikeListener() {
                                 @Override
@@ -114,8 +114,7 @@ public class HomeFragment_3 extends PagerFragment {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(getContext(),
-                            error.getMessage(), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
             mQueue.add(request);
@@ -140,7 +139,7 @@ public class HomeFragment_3 extends PagerFragment {
         },new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }){
             @Override
@@ -170,7 +169,7 @@ public class HomeFragment_3 extends PagerFragment {
         },new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }){
             @Override
@@ -193,16 +192,17 @@ public class HomeFragment_3 extends PagerFragment {
                 HttpPath.setLikeCol(),new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                Log.e("种草: ", "成功！");
                 if(response.equals("点赞成功")){
                     mainItemsList.get(pos).setLikenum(mainItemsList.get(pos).getLikenum()+1);
                     adapter2.notifyItemChanged(pos);
-                    mainItem.scrollToPosition(pos);
+//                    ((LinearLayoutManager)mainItem.getLayoutManager()).scrollToPositionWithOffset(pos, 0);
                 }
             }
         },new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }){
             @Override
@@ -226,17 +226,18 @@ public class HomeFragment_3 extends PagerFragment {
                 HttpPath.setDislike(),new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                Log.e("拔草: ", "成功！");
                 if(response.equals("踩成功")){
 //                    Log.e("onResponse3: ", mainItemsList.get(pos).getLikenum()+"");
                     mainItemsList.get(pos).setDislikenum(mainItemsList.get(pos).getDislikenum()+1);
                     adapter2.notifyItemChanged(pos);
-                    mainItem.scrollToPosition(pos);
+//                    ((LinearLayoutManager)mainItem.getLayoutManager()).scrollToPositionWithOffset(pos, 0);
                 }
             }
         },new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }){
             @Override

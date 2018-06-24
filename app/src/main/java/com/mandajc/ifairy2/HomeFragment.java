@@ -33,6 +33,8 @@ import View.PagerFragment;
 public class HomeFragment extends Fragment{
     @BindView(R.id.search)
     Button search;
+    @BindView(R.id.notice)
+    Button notice;
     Resources resources;
     private ViewPager mPager;
     private ArrayList<PagerFragment> fragmentsList;
@@ -87,6 +89,14 @@ public class HomeFragment extends Fragment{
                 startActivity(intent);
             }
         });
+        notice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), NotificationActivity.class);
+                intent.putExtra("username", username);
+                startActivity(intent);
+            }
+        });
         return view;
     }
 
@@ -133,12 +143,12 @@ public class HomeFragment extends Fragment{
         int screenW = dm.widthPixels;
         layout1.measure(0, 0);
         int layoutW = layout1.getMeasuredWidth();
-        offset = (int) ((screenW - layoutW) / 2)+5;//=position_zero
+        offset = (int) ((screenW - layoutW) / 2)+10;//=position_zero
         avg = (int) (layoutW / num);
-        bottomLineWidth.width = avg/2;
+        bottomLineWidth.width = avg*3/5;
         ivBottomLine.setLayoutParams(bottomLineWidth);
-        position_one = avg+5 + offset;
-        position_two = (avg+5) * 2 + offset;
+        position_one = avg + offset + 10;
+        position_two = (avg+10) * 2 + offset;
     }
 
     public class MyOnClickListener implements View.OnClickListener {

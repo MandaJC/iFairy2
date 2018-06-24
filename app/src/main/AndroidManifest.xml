@@ -9,9 +9,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/icon"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
@@ -40,21 +40,27 @@
 
         <activity
             android:name=".LoginActivity"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask" />
         <activity
             android:name=".SearchActivity"
             android:theme="@style/AppTheme" />
         <activity android:name=".CollectActivity" />
         <activity android:name=".MyEssayActivity" />
         <activity android:name=".setCenterActivity" />
-        <activity android:name=".StartActivity"
+        <activity
+            android:name=".StartActivity"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RegisterActivity"></activity>
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".TuisongActivity" />
+        <activity android:name=".PrivacyActivity" />
+        <activity android:name=".NotificationActivity" />
+        <activity android:name=".NoMsgActivity"></activity>
     </application>
 
 </manifest>

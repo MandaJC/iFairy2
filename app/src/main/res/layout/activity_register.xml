@@ -13,14 +13,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="45dp"
             android:gravity="center_vertical"
             android:text="用  户  名"
             android:textSize="18dp" />
 
         <EditText
             android:id="@+id/reUserName"
-            android:layout_width="227dp"
+            android:layout_width="200dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="30dp"
@@ -36,14 +36,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="40dp"
             android:gravity="center_vertical"
             android:text="昵         称"
             android:textSize="18dp" />
 
         <EditText
             android:id="@+id/reNickName"
-            android:layout_width="227dp"
+            android:layout_width="200dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="30dp"
@@ -59,7 +59,7 @@
         <TextView
             android:layout_width="71dp"
             android:layout_height="match_parent"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="40dp"
             android:text="密        码"
             android:gravity="center_vertical"
             android:textSize="18dp"
@@ -67,7 +67,7 @@
 
         <EditText
             android:id="@+id/rePassword"
-            android:layout_width="227dp"
+            android:layout_width="200dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="30dp"
@@ -87,11 +87,11 @@
             android:text="确认密码"
             android:textSize="18dp"
             android:gravity="center"
-            android:layout_marginLeft="30dp"/>
+            android:layout_marginLeft="40dp"/>
 
         <EditText
             android:id="@+id/reEnsurePW"
-            android:layout_width="227dp"
+            android:layout_width="200dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="30dp"
@@ -101,12 +101,13 @@
 
     <Button
         android:id="@+id/ensureRegist"
-        android:layout_width="110dp"
-        android:layout_height="wrap_content"
+        android:layout_width="117dp"
+        android:layout_height="36dp"
         android:layout_gravity="center"
         android:layout_marginTop="50dp"
         android:background="@drawable/btn_shape"
         android:text="确   定"
-        android:textSize="18dp"/>
+        style="?android:attr/borderlessButtonStyle"
+        android:textSize="18dp" />
 
 </LinearLayout>

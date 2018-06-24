@@ -82,6 +82,7 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
     @BindView(R.id.article_tag1)    Button article_tag1;
     @BindView(R.id.article_tag2)    Button article_tag2;
     @BindView(R.id.article_tag3)    Button article_tag3;
+    @BindView(R.id.comment_layout) LinearLayout comment_layout;
     @BindView(R.id.comment_list)    RecyclerView comment_list;
     @BindView(R.id.edit_comment)    EditText edit_comment;
     @BindView(R.id.btn_comment) Button btn_comment;
@@ -119,6 +120,7 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
         Log.e("id", article.getId()+"");
         Log.e("todo username", username+"");
         Log.e("username", article.getUsername()+"");
+        Log.e("单个文章", article.getTitle()+"");
         postTitle.setText(article.getTitle());
         postText.setText(article.getContent());
         textLike.setText(String.valueOf(article.getLikenum()));
@@ -126,6 +128,7 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
         article_user1.setText(article.getNickname());
         article_user2.setText(article.getNickname());
         article_relative.setText(article.getRelative());
+        Glide.with(this).load(HttpPath.getPic(article.getUserphoto())).into(img_article_user);
         if(!(article.getTag()==null) && !article.getTag().isEmpty()){
             article_tag1.setText(article.getTag());
         }else {
@@ -307,6 +310,7 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
 //                        imgLike.setImageResource(R.drawable.liked);
                     }else {//未点赞
                         Glide.with(PostActivity.this).load(R.drawable.unlike).into(imgLike);
+                        Log.e("PostActivity: ", response);
 //                        imgLike.setImageResource(R.drawable.unlike);
                     }
                 }else if(type == 1){//check完，若未like则setLike，已点赞则不动作
@@ -318,7 +322,7 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
         },new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }){
             @Override
@@ -361,7 +365,7 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
         },new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }){
             @Override
@@ -384,6 +388,7 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
                 HttpPath.setLike(),new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                Log.e("设置点赞:", response);
                 if(response.equals("点赞成功")){
                     Glide.with(PostActivity.this).load(R.drawable.liked).into(imgLike);
 //                        imgLike.setImageResource(R.drawable.liked);
@@ -394,7 +399,7 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
         },new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }){
             @Override
@@ -420,7 +425,7 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
                 HttpPath.setCollect(),new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.e("setresponse:", response);
+                Log.e("设置收藏:", response);
                 if(response.equals("收藏成功")){
                     Glide.with(PostActivity.this).load(R.drawable.collect).into(imgCollect);
 //                        imgLike.setImageResource(R.drawable.liked);
@@ -431,7 +436,7 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
         },new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }){
             @Override
@@ -457,15 +462,15 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
                 HttpPath.CommentPost(),new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.e("onResponse: ", response);
+                Log.e("发表评论: ", response);
                 Toast.makeText(PostActivity.this, "发表成功", Toast.LENGTH_SHORT).show();
+                comment_layout.setVisibility(View.GONE);
                 InitComment(2);
             }
         },new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(),
-                        error.getMessage(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }){
             @Override
@@ -488,6 +493,7 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
                 HttpPath.CommentList(), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                Log.e("获取评论列表：", "成功！");
                 iscomment = true;
                 try {
                     mainItemsList = GsonUtils.jsonToArrayList(response, Comment.class);
@@ -518,8 +524,7 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(),
-                        error.getMessage(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }) {
             @Override
@@ -540,7 +545,7 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
                 HttpPath.SetFollow(),new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.e("setresponse:", response);
+                Log.e("添加关注:", response);
                 if(response.equals("关注成功")){
                     follow.setBackgroundColor(blank);
                 }
@@ -548,7 +553,7 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
         },new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }){
             @Override

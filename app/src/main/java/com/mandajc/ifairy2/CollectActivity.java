@@ -86,7 +86,7 @@ public class CollectActivity extends AppCompatActivity implements View.OnClickLi
 //                    GridLayoutManager layoutManager2 = new GridLayoutManager(MyEssayActivity.this, 2);
                     myWhatRecycler.setAdapter(adapter2);
                     myWhatRecycler.setLayoutManager(layoutManager2);
-                    Log.e("Fragment1:", mainItemsList.get(0).getTitle());
+                    Log.e("收藏列表:", "成功");
                 }catch (JsonSyntaxException e){
                     e.printStackTrace();
                 }
@@ -94,7 +94,7 @@ public class CollectActivity extends AppCompatActivity implements View.OnClickLi
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(CollectActivity.this,error.getMessage(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(CollectActivity.this,error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }){
             @Override

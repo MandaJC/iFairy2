@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <!--<ImageView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:src="@drawable/logo"-->
+        <!--android:layout_weight="1"/>-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10sp"
+        android:layout_marginTop="10sp"
+        android:text="      小仙女是由郭宜(15336054)、曾雯嘉(15336006)、方楚丽(15336037)设计并开发的美妆APP。在这里你可以分享你的美妆心得，搜索其他人美妆心得，并根据其他人的肤质和使用体验来帮你选购产品。"/>
+</LinearLayout>

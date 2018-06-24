@@ -81,6 +81,7 @@ public class PersonFragment extends Fragment implements View.OnClickListener{
     @BindView(R.id.myEssay) Button myEssay;
     @BindView(R.id.set) Button set;
     @BindView(R.id.exit) Button exit;
+//    @BindView(R.id.back)    ImageView back;
     Intent intent;
     Bundle bundle;
     public String username;
@@ -113,6 +114,7 @@ public class PersonFragment extends Fragment implements View.OnClickListener{
         set.setOnClickListener(this);
         exit.setOnClickListener(this);
         pen.setOnClickListener(this);
+//        back.setVisibility(View.GONE);
         mQueue = Volley.newRequestQueue(getActivity());
         InitView();
         return view;
@@ -190,29 +192,31 @@ public class PersonFragment extends Fragment implements View.OnClickListener{
             cursor.moveToFirst();
             //获取字段名为_data的数据
             String imagePath = cursor.getString(cursor.getColumnIndex("_data"));
-            changePhoto(imagePath);
             headPortrait.setImageURI(data.getData());
             Log.e("onActivityResult: photo", imagePath);
+            changePhoto(imagePath);
         }
     }
 
     public void changePhoto(String imagePath){
         File file = new File(imagePath);
-        Log.e("changePhoto: ", file.getAbsolutePath()+file.getName());
+        Log.e("changePhoto: ", file.getAbsolutePath()+" and " +file.getName());
+        Log.e("username: ", username);
         // TODO Auto-generated method stub
         HttpUtils http = new HttpUtils();
-        RequestParams params = new RequestParams();
+        com.lidroid.xutils.http.RequestParams params = new com.lidroid.xutils.http.RequestParams("UTF-8");
         params.addBodyParameter("username", username);
         params.addBodyParameter("userphoto", file);
         http.send(HttpRequest.HttpMethod.POST, HttpPath.changeHeadImg(), params,
                 new RequestCallBack<String>() {
                     @Override
                     public void onFailure(HttpException arg0, String arg1) {
+                        Log.e("changePhoto error:", arg0.toString()+" "+arg1);
                     }
                     @Override
                     public void onSuccess(ResponseInfo<String> arg0) {
-//                        Toast.makeText(getContext(), arg0.toString(), Toast.LENGTH_SHORT).show();
-                        Log.i("changePhoto", arg0.result.toString());
+                        Toast.makeText(getContext(), arg0.toString(), Toast.LENGTH_SHORT).show();
+                        Log.e("changePhoto success:", arg0.result.toString());
                     }
                 });
 
@@ -228,7 +232,7 @@ public class PersonFragment extends Fragment implements View.OnClickListener{
         },new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }){
             @Override
@@ -249,6 +253,7 @@ public class PersonFragment extends Fragment implements View.OnClickListener{
                 HttpPath.Selfinfo(),new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                Log.e("个人中心:", "成功！");
                 final SelfInfo selfInfo;
                 selfInfo = GsonUtils.parseJSON(response, SelfInfo.class);
                 numOfFans.setText(String.valueOf(selfInfo.getFansnum()));
@@ -256,7 +261,6 @@ public class PersonFragment extends Fragment implements View.OnClickListener{
                 numOfCollection.setText(String.valueOf(selfInfo.getCollectnum()));
                 numOfEssay.setText(String.valueOf(selfInfo.getArticlenum()));
                 person_name.setText(String.valueOf(selfInfo.getNickname()));
-                Log.e("path:", selfInfo.getHeadimg());
                 Glide.with(getContext())
                         .load(HttpPath.getPic(selfInfo.getHeadimg()))
                         .asBitmap()

@@ -1,9 +1,9 @@
 package Util;
 
 public class HttpPath {
-//    private static final String IP="192.168.199.209:8000";
-//	private static final String IP="172.19.89.112:8000";
-	private static final String IP="mandajc.xicp.io:17881";
+    private static final String IP="111.231.253.16:8000";
+//	private static final String IP="203.195.206.214:8000";
+//	private static final String IP="192.168.1.104:8000";
     private static final String qnyIP="papfvr9g2.bkt.clouddn.com";
     public static String get_post_ArticleList(){
         return "http://"+IP+"/Article/list/";
