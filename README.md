@@ -1,5 +1,5 @@
 # iFairy2
-    iFairy的后台
+    iFairy的前端
     Android sdk 版本：27
     tools版本：27.0.1
     在保持网络畅通的情况下编译
