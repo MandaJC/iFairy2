@@ -1,8 +1,9 @@
 # iFairy2
-    iFairy的前端
+    iFairy的后台
     Android sdk 版本：27
     tools版本：27.0.1
     在保持网络畅通的情况下编译
+    build.gradle中glide和butterknife的版本不要更新，尤其是glide，新版不稳定，该版本为最稳定的版本
 ----
 ## 文件说明
 ### java文件：
