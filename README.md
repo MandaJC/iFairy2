@@ -1,5 +1,6 @@
 # iFairy2
     iFairy的前端
+    git地址：https://github.com/MandaJC/iFairy2
     Android sdk 版本：27
     tools版本：27.0.1
     在保持网络畅通的情况下编译
