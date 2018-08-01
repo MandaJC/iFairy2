@@ -398,6 +398,7 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
                 params.addBodyParameter("photo1", file[0]);
                 params.addBodyParameter("photo2", file[1]);
                 params.addBodyParameter("photo3", file[2]);
+                // params.addBodyParameter("photos", file);
                 break;
             default:
                 break;

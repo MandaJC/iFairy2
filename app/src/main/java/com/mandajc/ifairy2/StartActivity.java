@@ -8,14 +8,16 @@ import android.view.View;
 import android.widget.Button;
 
 public class StartActivity extends AppCompatActivity {
-
-
     private Button login;
     private Button regist;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
+        if((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0){
+            finish();
+            return;
+        }
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null){actionBar.hide();}
         login = (Button)findViewById(R.id.login);
